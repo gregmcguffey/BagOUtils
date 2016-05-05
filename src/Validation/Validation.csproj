@@ -45,6 +45,7 @@
     <Compile Include="CollectionGuards.cs" />
     <Compile Include="LimitMessageTemplate.cs" />
     <Compile Include="LimitMessageBuilder.cs" />
+    <Compile Include="ObjectGuards.cs" />
     <Compile Include="ValidationExtensions.cs" />
     <Compile Include="NumericGuards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

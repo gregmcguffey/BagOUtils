@@ -56,11 +56,9 @@
     <Compile Include="IntegerGuardTests.cs" />
     <Compile Include="LimitMessageBuilderTests.cs" />
     <Compile Include="LongGuardTests.cs" />
+    <Compile Include="ObjectGuardTests.cs" />
     <Compile Include="ValidationExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
