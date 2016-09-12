@@ -1,4 +1,7 @@
-# Validation
+# My Ulitimate Bag of Utilities (mubu)
+This project is a collection of .NET projects that provide a set of utilities. The utilities are broken up into small, discreet projects, each with a NuGet package. This allows for targeted inclusion of just the necessary utilities in a project. Tools such as ILMerge or [LibZ](https://github.com/MiloszKrajewski/LibZ) can then be used to deal with deploying large number of _dlls_. 
+
+## Validation
 This library provides a set of validation extension methods that guard against conditions
 not allowed for a function parameters or an object's state. They allow a natural calling
 style for validation:
