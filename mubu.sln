@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "src\Validation\Validation.csproj", "{6B96523A-6F1C-4991-A297-AECC84A937FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards", "src\Guards\Guards.csproj", "{6B96523A-6F1C-4991-A297-AECC84A937FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation.Unit.Tests", "src\Validation.Unit.Tests\Validation.Unit.Tests.csproj", "{5B87AFB4-4E19-4D48-AC66-5524935B3037}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards.Unit.Tests", "src\Guards.Unit.Tests\Guards.Unit.Tests.csproj", "{5B87AFB4-4E19-4D48-AC66-5524935B3037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
