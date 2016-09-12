@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gpm.Validation
+namespace BagOUtils.Guards
 {
     /// <summary>
     /// Defend against invalid objects that implement ICollection

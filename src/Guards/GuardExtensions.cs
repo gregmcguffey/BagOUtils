@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gpm.Validation
+namespace BagOUtils.Guards
 {
     /// <summary>
     /// Extensions methods that allow fluent comparison of numbers. This

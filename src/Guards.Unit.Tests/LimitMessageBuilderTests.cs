@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace Gpm.Validation.Unit.Tests
+namespace BagOUtils.Guards.Unit.Tests
 {
     [TestFixture]
     public class LimitMessageBuilderTests

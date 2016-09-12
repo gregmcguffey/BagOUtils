@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using Gpm.Validation;
+using BagOUtils.Guards;
 
-namespace Gpm.Validation.Unit.Tests
+namespace BagOUtils.Guards.Unit.Tests
 {
     [TestFixture]
     public class CollectionGuardTests

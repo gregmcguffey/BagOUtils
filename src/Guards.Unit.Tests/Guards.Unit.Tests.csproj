@@ -7,8 +7,8 @@
     <ProjectGuid>{5B87AFB4-4E19-4D48-AC66-5524935B3037}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gpm.Validation.Unit.Tests</RootNamespace>
-    <AssemblyName>Gpm.Validation.Unit.Tests</AssemblyName>
+    <RootNamespace>BagOUtils.Guards.Unit.Tests</RootNamespace>
+    <AssemblyName>BagOUtils.Guards.Unit.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -67,7 +67,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Guards\Guards.csproj">
       <Project>{6b96523a-6f1c-4991-a297-aecc84a937fb}</Project>
-      <Name>Validation</Name>
+      <Name>Guards</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

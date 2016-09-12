@@ -7,8 +7,8 @@
     <ProjectGuid>{6B96523A-6F1C-4991-A297-AECC84A937FB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gpm.Validation</RootNamespace>
-    <AssemblyName>Gpm.Validation</AssemblyName>
+    <RootNamespace>BagOUtils.Guards</RootNamespace>
+    <AssemblyName>BagOUtils.Guards</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
