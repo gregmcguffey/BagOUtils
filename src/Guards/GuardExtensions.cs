@@ -14,7 +14,7 @@ namespace Gpm.Validation
     /// types. This allows us to use IComparable, to get a whole class
     /// of types that can have extension methods that do comparisons.
     /// </summary>
-    public static class ValidationExtensions
+    public static class GuardExtensions
     {
         /// <summary>
         /// Determine if the other value is less than 

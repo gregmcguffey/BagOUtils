@@ -58,14 +58,14 @@
     <Compile Include="LongGuardTests.cs" />
     <Compile Include="ObjectGuardTests.cs" />
     <Compile Include="StringGuardTests.cs" />
-    <Compile Include="ValidationExtensionTests.cs" />
+    <Compile Include="GuardExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Validation\Validation.csproj">
+    <ProjectReference Include="..\Guards\Guards.csproj">
       <Project>{6b96523a-6f1c-4991-a297-aecc84a937fb}</Project>
       <Name>Validation</Name>
     </ProjectReference>

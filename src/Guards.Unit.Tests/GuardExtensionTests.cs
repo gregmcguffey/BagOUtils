@@ -9,7 +9,7 @@ using Gpm.Validation;
 namespace Gpm.Validation.Unit.Tests
 {
     [TestFixture]
-    public class ValidationExtensionTests
+    public class GuardExtensionTests
     {
         [TestCase(1, 2, true)]
         [TestCase(1, 1, false)]
