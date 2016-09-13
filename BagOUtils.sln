@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards", "src\Guards\Guards
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards.Unit.Tests", "src\Guards.Unit.Tests\Guards.Unit.Tests.csproj", "{5B87AFB4-4E19-4D48-AC66-5524935B3037}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messages", "ConfigurationCache\Messages.csproj", "{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5B87AFB4-4E19-4D48-AC66-5524935B3037}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B87AFB4-4E19-4D48-AC66-5524935B3037}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B87AFB4-4E19-4D48-AC66-5524935B3037}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
