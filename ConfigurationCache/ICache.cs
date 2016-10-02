@@ -18,6 +18,9 @@ namespace BagOUtils.ConfigurationCache
         ICache<TCategory> SetStorage(IStorage storage);
         ICache<TCategory> SetRetreiver(ICategoryRetriever<TCategory> retriever);
         ICache<TCategory> SetDefaultCategory(TCategory defaultCategory);
+
+        TCategory DefaultCategory { get; }
+        bool IsConfigured { get; }
         void ResetCache();
 
         T RetrieveAndCache<T>(string key);

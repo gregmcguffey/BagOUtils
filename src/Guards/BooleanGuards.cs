@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using custom = BagOUtils.Guards.Custom;
+//using custom = BagOUtils.Guards.Custom;
 
 namespace BagOUtils.Guards
 {
@@ -37,7 +37,7 @@ namespace BagOUtils.Guards
         {
             if (!flag)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(itemName);
             }
         }
 
@@ -55,7 +55,7 @@ namespace BagOUtils.Guards
         {
             if (flag)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(itemName);
             }
         }
 

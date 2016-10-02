@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards.Unit.Tests", "src\Gu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationCache", "ConfigurationCache\ConfigurationCache.csproj", "{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationCache.Unit.Tests", "ConfigurationCache.Unit.Tests\ConfigurationCache.Unit.Tests.csproj", "{36DDBC10-877B-41C2-9BCC-C8C02DCB54A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DDBC10-877B-41C2-9BCC-C8C02DCB54A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DDBC10-877B-41C2-9BCC-C8C02DCB54A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DDBC10-877B-41C2-9BCC-C8C02DCB54A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DDBC10-877B-41C2-9BCC-C8C02DCB54A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
