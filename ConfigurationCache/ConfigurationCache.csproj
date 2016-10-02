@@ -45,6 +45,7 @@
     <Compile Include="ICache.cs" />
     <Compile Include="ICategoryRetriever.cs" />
     <Compile Include="IStorage.cs" />
+    <Compile Include="DictionaryRetriever.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage.cs" />
   </ItemGroup>
