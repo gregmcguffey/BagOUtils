@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 namespace BagOUtils.ConfigurationCache
 {
     /// <summary>
-    /// Cache value retriever when the source is simply a dictionary that stores strings.
+    /// Cache value retriever when the source is simply a dictionary
+    /// that stores strings.
     /// </summary>
     /// <remarks>
-    /// In this case, the category is a class that can convert a string to the
-    /// desired output type.
+    /// The dictionary stores string values. Thus to get strongly typed
+    /// values from these strings, the category is a TypeCode that
+    /// defines the desired return type of a value. The actual data
+    /// is injected in the constructor.
     /// </remarks>
     public class DictionaryRetriever : ICategoryRetriever<TypeCode>
     {
@@ -20,6 +23,9 @@ namespace BagOUtils.ConfigurationCache
 
         public DictionaryRetriever(Dictionary<string, string> source)
         {
+            (source != null)
+                .GuardIsTrue("No source dictionary was provided.");
+
             this.source = source;
             this.typeParsers = this.DefineParsers();
         }
@@ -29,19 +35,19 @@ namespace BagOUtils.ConfigurationCache
             // Guard that we know how to deal with the type and that
             // the key is defined in the dictionary. Also check that
             // the type code matched the generic type provided.
-            if (!source.ContainsKey(key))
+            if (!this.typeParsers.ContainsKey(valueType))
             {
                 var unsupportedType = $"The type code provided, '{valueType.ToString()}', is not supported.";
                 throw new ArgumentException(unsupportedType);
             }
             if (!source.ContainsKey(key))
             {
-                var missingKeyMessage = $"The key provided, '{key}', is not defined.";
+                var missingKeyMessage = $"The key provided, '{key}', is not defined in the source dictionary.";
                 throw new ArgumentException(missingKeyMessage);
             }
             if (!this.TypeCodeMatchesType<T>(valueType))
             {
-                var typeMismatch = $"The type code, '{valueType.ToString()}', and the generic type, '{typeof(T).ToString()}, do not match.";
+                var typeMismatch = $"The type code, '{valueType.ToString()}', and the generic type, '{typeof(T).ToString()}', do not match.";
                 throw new ArgumentException(typeMismatch);
             }
 
@@ -54,6 +60,12 @@ namespace BagOUtils.ConfigurationCache
 
             return strongValue;
         }
+
+        //-------------------------------------------------------------------------
+        //
+        // Define Supported Types
+        //
+        //-------------------------------------------------------------------------
 
         private Dictionary<TypeCode, Func<string, object>> DefineParsers()
         {
@@ -78,6 +90,12 @@ namespace BagOUtils.ConfigurationCache
 
             return parsers;
         }
+
+        //-------------------------------------------------------------------------
+        //
+        // Private Helpers
+        //
+        //-------------------------------------------------------------------------
 
         /// <summary>
         /// Return if the provided type code matches the indicated type.
