@@ -26,6 +26,11 @@ namespace BagOUtils.ConfigurationCache
         IStorage AddStore<T>(Dictionary<string, T> store);
 
         /// <summary>
+        /// Returns count of stores currently defined.
+        /// </summary>
+        int Count { get; }
+
+        /// <summary>
         /// Get the store of the indicated type.
         /// </summary>
         /// <typeparam name="T">Type of store to retrieve.</typeparam>
