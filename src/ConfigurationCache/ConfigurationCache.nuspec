@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  For more info on this file format visit http://docs.nuget.org/docs/reference/nuspec-reference.
+-->
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">  
+  <metadata>
+    <id>BagOUtils.ConfigurationCache</id>
+    <version>0.1.0-alpha</version>
+    <authors>Greg McGuffey</authors>
+    <description>Abstraction of configuration values, allowing for a variety of sources.</description>
+    <language>en-US</language>
+    <projectUrl>https://github.com/gregmcguffey/BagOUtils/</projectUrl>
+    <licenseUrl>https://github.com/gregmcguffey/BagOUtils/blob/master/LICENSE</licenseUrl>
+    <copyright>Copyright ©2016 Greg McGuffey</copyright>
+    <owners>gregmcguffey</owners>
+  </metadata>
+
+  <files>
+    <file src="*.dll" target="lib\net461" />
+  </files>
+</package>

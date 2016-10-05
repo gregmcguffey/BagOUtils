@@ -48,8 +48,7 @@
     <Compile Include="Storage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="project1.nuspec" />
-    <None Include="project2.nuspec" />
+    <None Include="ConfigurationCache.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
