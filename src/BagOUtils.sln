@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards", "src\Guards\Guards.csproj", "{6B96523A-6F1C-4991-A297-AECC84A937FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards", "Guards\Guards.csproj", "{6B96523A-6F1C-4991-A297-AECC84A937FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards.Unit.Tests", "src\Guards.Unit.Tests\Guards.Unit.Tests.csproj", "{5B87AFB4-4E19-4D48-AC66-5524935B3037}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guards.Unit.Tests", "Guards.Unit.Tests\Guards.Unit.Tests.csproj", "{5B87AFB4-4E19-4D48-AC66-5524935B3037}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationCache", "src\ConfigurationCache\ConfigurationCache.csproj", "{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationCache", "ConfigurationCache\ConfigurationCache.csproj", "{27C3DCCC-6AD0-4044-97EC-223EA99DEF2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationCache.Unit.Tests", "src\ConfigurationCache.Unit.Tests\ConfigurationCache.Unit.Tests.csproj", "{36DDBC10-877B-41C2-9BCC-C8C02DCB54A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationCache.Unit.Tests", "ConfigurationCache.Unit.Tests\ConfigurationCache.Unit.Tests.csproj", "{36DDBC10-877B-41C2-9BCC-C8C02DCB54A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
