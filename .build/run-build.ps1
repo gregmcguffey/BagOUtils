@@ -13,26 +13,13 @@
         2016-10-02 (gpm): Initial create.
 
     .EXAMPLE
-    build -PSakeVersion '4.6.0' -LibZVersion '1.2.0.0'
+    build -PSakeVersion '4.6.0'
 #>
 
 
 Param
 (
-    [Parameter(Mandatory=$true)]
-    [string]
-    # Version of psake to use.
-    $PSakeVersion,
-
-    [Parameter(Mandatory=$true)]
-    [string]
-    # Version of LibZ to use.
-    $LibZVersion
 )
 
 
-# NuGet isn't doing so well with solution level installation,
-# so we have to dig into the packages folder.
-Import-Module "..\packages\psake.$PSakeVersion\tools\psake.psm1"
-
-Invoke-psake .\build.ps1 -framework 4.6.1 -properties @{"LibZVersion" = "$LibZVersion"}
+psake .\build-ConfigurationCache.ps1 -framework 4.6.1

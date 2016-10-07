@@ -31,13 +31,15 @@ Properties {
     $rootFolder = [System.IO.Path]::GetFullPath("$buildFolder\..")
     $buildArtifactsFolder = [System.IO.Path]::GetFullPath("$rootFolder\build-artifacts\")
     $solution = "BagOUtils.sln"
-    $solutionPath = "$rootFolder\$solution"
+    $solutionPath = "$rootFolder\src\$solution"
+    $nugetSpec = "ConfigurationCache.nuspec"
+    $nugetSpecPath = "$buildArtifactsFolder\$nugetSpec"
     $assemblyName = "BagOUtils.ConfigurationCache"
 }
 
 FormatTaskName (("-"*25) + "[ {0} ]" + ("-"*25))
 
-task default -depends Validate, Package
+task default -depends Package
 
 task Clean {
     Write-Host "Creating build-artifacts directory" -ForegroundColor Green
@@ -59,18 +61,10 @@ task Build -depends Clean {
 
 # Package into a NuGet Package
 task Package -depends Build {
-    exec { nuget pack }
+    exec { nuget pack $nugetSpecPath -OutputDirectory $buildArtifactsFolder}
 
-    Get-ChildItem "$buildArtifactsFolder" -Exclude ("*.dll", "*.nupkg") | foreach ($_) {remove-item $_.fullname}
+    Get-ChildItem "$buildArtifactsFolder" -Exclude ("*.nupkg") | foreach ($_) {remove-item $_.fullname}
 }
 
 task Validate {
-    Write-Host "Validate that LibZVersion was provided."
-    $missingLibZVersionMessage = "`$LibZVersion should not be null. Run with -properties @{'LibZVersion' = 'version'}"
-    Assert ($LibZVersion -ne $null) $missingLibZVersionMessage
-
-    Write-Host "Validate LibZ path resolves to existing packages folders."
-    $libZFolder = GetLibZFolder
-    $babLibZVersionMessage = "The LibZ package folder was not found: '$libZFolder'."
-    Assert (Test-Path $libZFolder) $babLibZVersionMessage
 }
