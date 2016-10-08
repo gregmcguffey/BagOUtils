@@ -35,11 +35,13 @@ Properties {
     $nugetSpec = "ConfigurationCache.nuspec"
     $nugetSpecPath = "$buildArtifactsFolder\$nugetSpec"
     $assemblyName = "BagOUtils.ConfigurationCache"
+    $publishIt = $false
+    $prereleaseSuffix = ""
 }
 
-FormatTaskName (("-"*25) + "[ {0} ]" + ("-"*25))
+FormatTaskName (("-"*10) + "[ {0} ]" + ("-"*40))
 
-task default -depends Package
+task default -depends Publish
 
 task Clean {
     Write-Host "Creating build-artifacts directory" -ForegroundColor Green
@@ -54,7 +56,7 @@ task Clean {
     Exec { msbuild "$solutionPath" /t:Clean /p:Configuration=Release /v:quiet }
 }
 
-task Build -depends Clean {
+task Build -depends Version {
     Write-Host "Building $solution" -ForegroundColor Green
     Exec { msbuild "$solutionPath" /t:Build /p:Configuration=Release /v:quiet /p:OutDir=$buildArtifactsFolder }
 }
@@ -66,5 +68,26 @@ task Package -depends Build {
     Get-ChildItem "$buildArtifactsFolder" -Exclude ("*.nupkg") | foreach ($_) {remove-item $_.fullname}
 }
 
-task Validate {
+# Publish package to NuGet
+task Publish -depends Package {
+    if ($publishIt) {
+        Write-Host "Publishing to NuGet."
+    }
+    else {
+        Write-Host "Publish skipped by request."
+    }
+}
+# Restore NuGet packages
+task Restore -depends Clean {
+    nuget restore "$solutionPath"
+}
+
+# Set Version of assembly and nuget package.
+task Version -depends Restore {
+    Write-Host $prereleaseSuffix
+    $versionSuffix = ""
+    if([string]::IsNullOrWhiteSpace("$prereleaseSuffix") -eq $false) {
+        $versionSuffix = "-$prereleaseSuffix"
+    }
+    Write-Host "NuGet Version suffix is '$versionSuffix'."
 }
