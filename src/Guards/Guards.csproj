@@ -49,7 +49,7 @@
     <Compile Include="CollectionGuards.cs" />
     <Compile Include="LimitMessageTemplate.cs" />
     <Compile Include="LimitMessageBuilder.cs" />
-    <Compile Include="Messages\GuardMessages.cs" />
+    <Compile Include="Messages\GuardMessage.cs" />
     <Compile Include="ObjectGuards.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
