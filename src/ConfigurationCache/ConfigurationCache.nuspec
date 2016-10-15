@@ -5,7 +5,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">  
   <metadata>
     <id>BagOUtils.ConfigurationCache</id>
-    <version>0.1.0-alpha</version>
+    <version>0.1.1-alpha</version>
     <authors>Greg McGuffey</authors>
     <description>Abstraction of configuration values, allowing for a variety of sources.</description>
     <language>en-US</language>
@@ -16,6 +16,6 @@
   </metadata>
 
   <files>
-    <file src="*.dll" target="lib\net461" />
+    <file src="BagOUtils.ConfigurationCache.dll" target="lib\net461" />
   </files>
 </package>
