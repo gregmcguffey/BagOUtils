@@ -19,21 +19,20 @@
 
 Param
 (
-    [switch]
-    # Publish the package(s) to NuGet after building?
-    $PublishToNuGet,
+    [ValidateSet("none", "nuget", "local")]
+    [string]
+    # Publish action to take. Three choices: none, nuget, local.
+    # default is none. The nuget choice publishs to configured 
+    # nuget repository. The local choice publishs to a local
+    # folder for testing.
+    $PublishAction = "none",
 
-    [switch]
-    # The package is an alpha build.
-    $Alpha,
-
-    [switch]
-    # The package is a beta build.
-    $Beta,
-
-    [switch]
-    # The package is a release candidate
-    $ReleaseCandidate
+    [string]
+    # Define the path to the local NuGet source folder. This
+    # is the folder this machine has configured in VS in NuGet
+    # and can be used to test pre-releaes packages. This is required
+    # with a PublishAction of 'local'.
+    $PreReleaseFolder
 )
 
 trap
@@ -42,16 +41,12 @@ trap
     exit 1
 }
 
-# Process pre-build suffixes. One or zero can be defined.
-$prereleaseFlagCount = [int]$Alpha.IsPresent + [int]$Beta.IsPresent + [int]$ReleaseCandidate.IsPresent
-if($prereleaseFlagCount -gt 1) {
-    throw [System.ArgumentException] "Zero or one pre-release flags can be specified. You specified $prereleaseFlagCount."
+# Validate that if the publish action is 'none', a pre-release was provided.
+$folderOK = (($PublishAction -eq "local" -and -not [string]::IsNullOrWhiteSpace($PreReleaseFolder)) -or ($PublishAction -ne "local"))
+if( -not $folderOK )
+{
+    throw [System.ArgumentNullException] "If the PublishAction is 'local', then you must supply a PreReleaseFolder."
 }
-$prereleaseSuffix = ""
-if($Alpha.IsPresent) { $prereleaseSuffix = "alpha"}
-if($Beta.IsPresent) { $prereleaseSuffix = "beta"}
-if($ReleaseCandidate.IsPresent) { $prereleaseSuffix = "rc"}
-
-psake .\build-ConfigurationCache.ps1 -framework 4.6.1 -properties "@{ 'publishIt' = `$$PublishToNuGet; 'prereleaseSuffix' = '$prereleaseSuffix' }"
+psake .\build-ConfigurationCache.ps1 -framework 4.6.1 -properties "@{ 'publishAction' = '$PublishAction'; 'prereleaseFolder' = '$PreReleaseFolder' }"
 
 exit 0

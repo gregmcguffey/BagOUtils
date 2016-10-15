@@ -35,8 +35,8 @@ Properties {
     $nugetSpec = "ConfigurationCache.nuspec"
     $nugetSpecPath = "$buildArtifactsFolder\$nugetSpec"
     $assemblyName = "BagOUtils.ConfigurationCache"
-    $publishIt = $false
-    $prereleaseSuffix = ""
+    $publishAction = $false
+    $prereleaseFolder = ""
 }
 
 FormatTaskName (("-"*10) + "[ {0} ]" + ("-"*40))
@@ -56,7 +56,13 @@ task Clean {
     Exec { msbuild "$solutionPath" /t:Clean /p:Configuration=Release /v:quiet }
 }
 
-task Build -depends Version {
+
+# Restore NuGet packages
+task Restore -depends Clean {
+    nuget restore "$solutionPath"
+}
+
+task Build -depends Restore {
     Write-Host "Building $solution" -ForegroundColor Green
     Exec { msbuild "$solutionPath" /t:Build /p:Configuration=Release /v:quiet /p:OutDir=$buildArtifactsFolder }
 }
@@ -70,24 +76,15 @@ task Package -depends Build {
 
 # Publish package to NuGet
 task Publish -depends Package {
-    if ($publishIt) {
-        Write-Host "Publishing to NuGet."
+    switch($publishAction)
+    {
+        "none" { Write-Host "Publish skipped by request." }
+        "local" {
+            Write-Host "Publish to local pre-release folder."
+            Get-ChildItem -Path "$buildArtifactsFolder" -Filter "*.nupkg" `
+                | Copy-Item -Destination "$prereleaseFolder" -Force
+        }
+        "nuget" { Write-Host "Publish to NuGet.com."}
+        default { Write-Host "Unknown publish action: $publishAction." }
     }
-    else {
-        Write-Host "Publish skipped by request."
-    }
-}
-# Restore NuGet packages
-task Restore -depends Clean {
-    nuget restore "$solutionPath"
-}
-
-# Set Version of assembly and nuget package.
-task Version -depends Restore {
-    Write-Host $prereleaseSuffix
-    $versionSuffix = ""
-    if([string]::IsNullOrWhiteSpace("$prereleaseSuffix") -eq $false) {
-        $versionSuffix = "-$prereleaseSuffix"
-    }
-    Write-Host "NuGet Version suffix is '$versionSuffix'."
 }
