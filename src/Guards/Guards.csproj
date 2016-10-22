@@ -46,7 +46,7 @@
     <Compile Include="Framework\CommonException.cs" />
     <Compile Include="Framework\Guard.cs" />
     <Compile Include="Framework\IValidator.cs" />
-    <Compile Include="Framework\ItemTemplateGuard.cs" />
+    <Compile Include="Framework\ItemTemplateComposer.cs" />
     <Compile Include="Framework\LimitGuard.cs" />
     <Compile Include="Framework\MessageGuard.cs" />
     <Compile Include="Framework\MessageTemplateGuard.cs" />

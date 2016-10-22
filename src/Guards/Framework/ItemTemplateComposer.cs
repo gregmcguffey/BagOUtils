@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BagOUtils.Guards.Framework
 {
     /// <summary>
-    /// Guard that uses an exception that requires both the
+    /// Guard composer that uses an exception that requires both the
     /// item name and a message. The message is built based
     /// on a template that uses the item name.
     /// </summary>
@@ -15,47 +15,46 @@ namespace BagOUtils.Guards.Framework
     /// Compare to a MessageGuard, which also uses the item
     /// name, but the exception only needs a message.
     /// </remarks>
-    public class ItemTemplateGuard<TValue, TException>
-        where TException : Exception
+    public class ItemTemplateComposer<TValue>
     {
         private readonly TValue value;
 
         private Func<bool> test;
-        private Func<string, string, TException> exceptionBuilder;
+        private Func<string, string, Func<Exception>> exceptionBuilder;
         private string template;
         private string nameTemplate;
         private string itemName;
 
-        public ItemTemplateGuard(TValue value)
+        public ItemTemplateComposer(TValue value)
         {
             this.value = value;
         }
 
-        public ItemTemplateGuard<TValue, TException> TestToExecute(Func<bool> test)
+        public ItemTemplateComposer<TValue> TestToExecute(Func<bool> test)
         {
             this.test = test;
             return this;
         }
 
-        public ItemTemplateGuard<TValue, TException> ExceptionBuilder(Func<string, string, TException> builder)
+        public ItemTemplateComposer<TValue> ExceptionBuilder(Func<string, string, Func<Exception>> builder)
         {
             this.exceptionBuilder = builder;
             return this;
         }
 
-        public ItemTemplateGuard<TValue, TException> TemplateUsed(string template)
+        public ItemTemplateComposer<TValue> TemplateUsed(string template)
         {
             this.template = template;
             return this;
         }
 
-        public ItemTemplateGuard<TValue, TException> NameTemplateUsed(string nameTemplate)
+        public ItemTemplateComposer<TValue> NameTemplateUsed(string nameTemplate)
         {
             this.nameTemplate = nameTemplate;
             return this;
         }
 
-        public ItemTemplateGuard<TValue, TException> ForItem(string itemName)
+        public ItemTemplateComposer<TValue> ForItem(string itemName)
         {
             this.itemName = itemName;
             return this;
@@ -63,14 +62,11 @@ namespace BagOUtils.Guards.Framework
 
         public TValue Guard()
         {
-            // Desired result is a true test.
-            if (!this.test())
-            {
-                var message = BuildMessage(this.itemName, this.template, this.nameTemplate);
-                var ex = this.exceptionBuilder(this.itemName, message);
-                throw ex;
-            }
-            return this.value;
+            var message = BuildMessage(this.itemName, this.template, this.nameTemplate);
+            var guard = new Guard<TValue>(this.value)
+                .ExceptionBuilderUsed(this.exceptionBuilder(this.itemName, message))
+                .Test(this.test);
+            return guard.ValidateAndReturn();
         }
 
         private string BuildMessage(string itemName, string template, string nameTemplate)

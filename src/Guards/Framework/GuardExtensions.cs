@@ -46,11 +46,10 @@ namespace BagOUtils.Guards.Framework
         /// <typeparam name="TException">Type of exception to throw.</typeparam>
         /// <param name="value">Value to check.</param>
         /// <returns>Guard to fluently configure.</returns>
-        public static ItemTemplateGuard<TValue, TException> PrepareItemTemplateGuard<TValue, TException>(this TValue value)
-            where TException : Exception
+        public static ItemTemplateComposer<TValue> ComposeItemTemplateGuard<TValue>(this TValue value)
         {
-            var guard = new ItemTemplateGuard<TValue, TException>(value);
-            return guard;
+            var composer = new ItemTemplateComposer<TValue>(value);
+            return composer;
         }
 
         /// <summary>
