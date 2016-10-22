@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BooleanGuards.cs" />
     <Compile Include="CollectionGuards.cs" />
+    <Compile Include="Framework\Guard.cs" />
     <Compile Include="Framework\ItemTemplateGuard.cs" />
     <Compile Include="Framework\LimitGuard.cs" />
     <Compile Include="Framework\MessageGuard.cs" />
