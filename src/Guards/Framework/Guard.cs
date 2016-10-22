@@ -10,7 +10,7 @@ namespace BagOUtils.Guards.Framework
     /// Guards that a condition is met and if it isn't, raises an exception.
     /// It it is met, return the value.
     /// </summary>
-    public class Guard<TValue, TException>
+    public class Guard<TValue, TException> : IValidator<TValue>
         where TException : Exception
     {
         private readonly TValue value;
@@ -39,7 +39,7 @@ namespace BagOUtils.Guards.Framework
             return this;
         }
 
-        public TValue Perform()
+        public TValue ValidateAndReturn()
         {
             if(!this.test())
             {
