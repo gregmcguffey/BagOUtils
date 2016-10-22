@@ -10,12 +10,11 @@ namespace BagOUtils.Guards.Framework
     /// Guards that a condition is met and if it isn't, raises an exception.
     /// It it is met, return the value.
     /// </summary>
-    public class Guard<TValue, TException> : IValidator<TValue>
-        where TException : Exception
+    public class Guard<TValue> : IValidator<TValue>
     {
         private readonly TValue value;
 
-        private Func<TException> exceptionBuilder;
+        private Func<Exception> exceptionBuilder;
         private Func<bool> test;
 
         public Guard(TValue value)
@@ -27,13 +26,13 @@ namespace BagOUtils.Guards.Framework
             this.test = this.TestNotSet;
         }
 
-        public Guard<TValue, TException> ExceptionBuilderUsed(Func<TException> exceptionBuilder)
+        public Guard<TValue> ExceptionBuilderUsed(Func<Exception> exceptionBuilder)
         {
             this.exceptionBuilder = exceptionBuilder;
             return this;
         }
 
-        public Guard<TValue, TException> Test(Func<bool> test)
+        public Guard<TValue> Test(Func<bool> test)
         {
             this.test = test;
             return this;
@@ -56,11 +55,11 @@ namespace BagOUtils.Guards.Framework
         //
         //-------------------------------------------------------------------------
 
-        private Func<TException> ExceptionBuilderNotSet
+        private Func<Exception> ExceptionBuilderNotSet
         {
             get
             {
-                Func<TException> notSet = () =>
+                Func<Exception> notSet = () =>
                 {
                     throw new InvalidOperationException("Guard is not configured property. No exception builder has been defined.");
                 };

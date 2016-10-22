@@ -19,7 +19,7 @@ namespace BagOUtils.Guards.Unit.Tests.Framework
             var value = 1;
             Func<bool> test = () => true;
             Func<Exception> exBuilder = () => new Exception();
-            var guard = new Guard<int, Exception>(value);
+            var guard = new Guard<int>(value);
             guard
                 .ExceptionBuilderUsed(exBuilder)
                 .Test(test);
@@ -38,7 +38,7 @@ namespace BagOUtils.Guards.Unit.Tests.Framework
             var item = new TestObject { Name = "bob" };
             Func<bool> test = () => true;
             Func<Exception> exBuilder = () => new Exception();
-            var guard = new Guard<TestObject, Exception>(item);
+            var guard = new Guard<TestObject>(item);
             guard
                 .ExceptionBuilderUsed(exBuilder)
                 .Test(test);
@@ -57,14 +57,14 @@ namespace BagOUtils.Guards.Unit.Tests.Framework
             // Arrange
             var value = 1;
             Func<bool> test = () => false;
-            Func<Exception> exBuilder = () => new Exception();
-            var guard = new Guard<int, Exception>(value);
+            Func<Exception> exBuilder = () => new FormatException();
+            var guard = new Guard<int>(value);
             guard
                 .ExceptionBuilderUsed(exBuilder)
                 .Test(test);
 
             // Act
-            var actualEx = Assert.Throws<Exception>(() => guard.ValidateAndReturn());
+            var actualEx = Assert.Throws<FormatException>(() => guard.ValidateAndReturn());
 
             // Assert
             Assert.IsInstanceOf<Exception>(actualEx);
@@ -79,7 +79,7 @@ namespace BagOUtils.Guards.Unit.Tests.Framework
             var value = 1;
             Func<bool> test = () => false;
             Func<Exception> exBuilder = () => new Exception();
-            var guard = new Guard<int, Exception>(value);
+            var guard = new Guard<int>(value);
             guard
                 .Test(test);
 
@@ -98,7 +98,7 @@ namespace BagOUtils.Guards.Unit.Tests.Framework
             var value = 1;
             Func<bool> test = () => false;
             Func<Exception> exBuilder = () => new Exception();
-            var guard = new Guard<int, Exception>(value);
+            var guard = new Guard<int>(value);
             guard
                 .ExceptionBuilderUsed(exBuilder);
 

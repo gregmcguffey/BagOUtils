@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BagOUtils.Guards.Messages
 {
     /// <summary>
-    /// Templates for failed limit validation messages.
+    /// Templates for failed limit guard messages.
     /// </summary>
     public class LimitMessageTemplate
     {
@@ -29,7 +29,7 @@ namespace BagOUtils.Guards.Messages
         public static string minTemplate = "The value, {0}, is below the minimum limit of {1}.";
         public static string maxTemplate = "The value, {0}, is above the maximum limit of {2}.";
         public static string inRangeTemplate = "The value, {0}, was not within the expected range of {1} to {2}.";
-        public static string invalidTemplate = "Invalid limit test: no limits set.";
+        public static string invalidTemplate = "Invalid limit test: no limits defined.";
 
         public static string GetTemplate(bool isMinLimitSet, bool isMaxLimitSet)
         {
