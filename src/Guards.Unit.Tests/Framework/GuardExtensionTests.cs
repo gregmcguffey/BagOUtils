@@ -12,6 +12,12 @@ namespace BagOUtils.Guards.Unit.Tests
     [TestFixture]
     public class GuardExtensionTests
     {
+        //-------------------------------------------------------------------------
+        //
+        // Comparison Methods
+        //
+        //-------------------------------------------------------------------------
+
         [TestCase(1, 2, true)]
         [TestCase(1, 1, false)]
         [TestCase(1, 0, false)]
