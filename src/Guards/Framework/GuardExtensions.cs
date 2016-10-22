@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BagOUtils.Guards.Messages;
 
-namespace BagOUtils.Guards
+namespace BagOUtils.Guards.Framework
 {
     /// <summary>
     /// Extensions methods that allow fluent comparison of numbers. This
@@ -16,6 +17,38 @@ namespace BagOUtils.Guards
     /// </summary>
     public static class GuardExtensions
     {
+        public static MessageTemplateGuard<TValue,TException> PrepareMessageTemplateGuard<TValue, TException>(this TValue value)
+            where TException : Exception
+            where TValue : IComparable<TValue>
+        {
+            var guard = new MessageTemplateGuard<TValue, TException>(value);
+            return guard;
+        }
+
+        public static ItemTemplateGuard<TValue, TException> PrepareItemTemplateGuard<TValue, TException>(this TValue value)
+            where TException : Exception
+            where TValue : IComparable<TValue>
+        {
+            var guard = new ItemTemplateGuard<TValue, TException>(value);
+            return guard;
+        }
+
+        public static LimitGuard<TValue, TException> PrepareLimitGuard<TValue, TException>(this TValue value)
+            where TException : Exception
+            where TValue : IComparable<TValue>
+        {
+            var guard = new LimitGuard<TValue, TException>(value);
+            return guard;
+        }
+
+        public static MessageGuard<TValue, TException> PrepareMessageGuard<TValue, TException>(this TValue value)
+            where TException : Exception
+            where TValue : IComparable<TValue>
+        {
+            var guard = new MessageGuard<TValue, TException>(value);
+            return guard;
+        }
+
         /// <summary>
         /// Determine if the other value is less than 
         /// the base value.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BagOUtils.Guards
+namespace BagOUtils.Guards.Messages
 {
     public class LimitMessageBuilder<T>
         where T : IComparable<T>
@@ -33,6 +33,16 @@ namespace BagOUtils.Guards
             return this;
         }
 
+        public LimitMessageBuilder<T> MaybeMin(bool isUsed, T min)
+        {
+            if (isUsed)
+            {
+                this.min = min;
+                this.isMinComparison = true;
+            }
+            return this;
+        }
+
         public LimitMessageBuilder<T> WithMax(T max)
         {
             this.max = max;
@@ -40,7 +50,17 @@ namespace BagOUtils.Guards
             return this;
         }
 
-        public string HasMessage()
+        public LimitMessageBuilder<T> MaybeMax(bool isUsed, T max)
+        {
+            if(isUsed)
+            {
+                this.max = max;
+                this.isMaxComparison = true;
+            }
+            return this;
+        }
+
+        public string BuildMessage()
         {
             var template = LimitMessageTemplate.GetTemplate(this.isMinComparison, this.isMaxComparison);
             return string.Format(template, value, this.min, this.max);

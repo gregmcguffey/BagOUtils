@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using BagOUtils.Guards.Framework;
 
 namespace BagOUtils.Guards.Unit.Tests
 {
@@ -23,7 +24,7 @@ namespace BagOUtils.Guards.Unit.Tests
             // Act
             var actualMessage = builder
                 .WithMin(minLimit)
-                .HasMessage();
+                .BuildMessage();
 
             // Assert
             Assert.AreEqual(expectedMessage, actualMessage);
@@ -41,7 +42,7 @@ namespace BagOUtils.Guards.Unit.Tests
             // Act
             var actualMessage = builder
                 .WithMax(maxLimit)
-                .HasMessage();
+                .BuildMessage();
 
             // Assert
             Assert.AreEqual(expectedMessage, actualMessage);
@@ -61,7 +62,7 @@ namespace BagOUtils.Guards.Unit.Tests
             var actualMessage = builder
                 .WithMin(minLimit)
                 .WithMax(maxLimit)
-                .HasMessage();
+                .BuildMessage();
 
             // Assert
             Assert.AreEqual(expectedMessage, actualMessage);

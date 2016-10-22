@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BagOUtils.Guards.Framework;
 
 namespace BagOUtils.Guards
 {
@@ -40,7 +41,7 @@ namespace BagOUtils.Guards
                 var exMessage = value
                     .BuildLimitMessage()
                     .WithMin(minimumValue)
-                    .HasMessage();
+                    .BuildMessage();
                 throw new ArgumentOutOfRangeException(argumentName, exMessage);
             }
 
@@ -70,7 +71,7 @@ namespace BagOUtils.Guards
                 var exMessage = value
                     .BuildLimitMessage()
                     .WithMax(maximumValue)
-                    .HasMessage();
+                    .BuildMessage();
                 throw new ArgumentOutOfRangeException(argumentName, exMessage);
             }
 
@@ -100,7 +101,7 @@ namespace BagOUtils.Guards
                     .BuildLimitMessage()
                     .WithMin(lowerLimit)
                     .WithMax(upperLimit)
-                    .HasMessage();
+                    .BuildMessage();
                 throw new ArgumentOutOfRangeException(argumentName, exMessage);
             }
             return value;

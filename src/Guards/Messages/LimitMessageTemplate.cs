@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BagOUtils.Guards
+namespace BagOUtils.Guards.Messages
 {
     /// <summary>
     /// Templates for failed limit validation messages.
