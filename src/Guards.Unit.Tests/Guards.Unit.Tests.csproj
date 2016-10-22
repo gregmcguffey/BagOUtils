@@ -54,6 +54,7 @@
     <Compile Include="DoubleGuardTests.cs" />
     <Compile Include="FloatGuardTests.cs" />
     <Compile Include="Framework\ItemTemplateGuardTests.cs" />
+    <Compile Include="Framework\GuardTests.cs" />
     <Compile Include="IntegerGuardTests.cs" />
     <Compile Include="Messages\LimitMessageBuilderTests.cs" />
     <Compile Include="LongGuardTests.cs" />

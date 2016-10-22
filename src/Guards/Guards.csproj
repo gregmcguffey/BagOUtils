@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BagOUtils.ConfigurationCache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BagOUtils.ConfigurationCache.0.1.1-alpha\lib\net461\BagOUtils.ConfigurationCache.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,7 +52,6 @@
     <Compile Include="Guard.cs" />
     <Compile Include="Messages\LimitMessageTemplate.cs" />
     <Compile Include="Messages\LimitMessageBuilder.cs" />
-    <Compile Include="Messages\GuardMessage.cs" />
     <Compile Include="ObjectGuards.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
