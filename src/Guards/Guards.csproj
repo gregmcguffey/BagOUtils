@@ -44,9 +44,12 @@
     <Compile Include="BooleanGuards.cs" />
     <Compile Include="CollectionGuards.cs" />
     <Compile Include="GuardExtensions.cs" />
-    <Compile Include="Guard.cs" />
+    <Compile Include="Messages\CustomTemplate.cs" />
+    <Compile Include="Messages\ItemTemplate.cs" />
+    <Compile Include="Messages\ItemValueTemplate.cs" />
     <Compile Include="Messages\LimitMessageTemplate.cs" />
     <Compile Include="Messages\LimitMessageBuilder.cs" />
+    <Compile Include="Messages\Messages.cs" />
     <Compile Include="ObjectGuards.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

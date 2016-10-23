@@ -116,5 +116,35 @@ namespace BagOUtils.Guards
         {
             return new LimitMessageBuilder<T>(value);
         }
+
+
+        //-------------------------------------------------------------------------
+        //
+        // Null Handlers
+        //
+        //-------------------------------------------------------------------------
+
+        /// <summary>
+        /// Check a string to see if it is null. If it is, return an empty string.
+        /// </summary>
+        public static string NullToEmpty(this string possibleNullString)
+        {
+            var fixedString = possibleNullString;
+            if (possibleNullString == null)
+            {
+                fixedString = string.Empty;
+            }
+            return fixedString;
+        }
+
+        public static string NullToEmpty(this object possibleNullObject)
+        {
+            var objectString = string.Empty;
+            if (possibleNullObject != null)
+            {
+                objectString = possibleNullObject.ToString();
+            }
+            return objectString;
+        }
     }
 }
