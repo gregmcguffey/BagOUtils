@@ -43,13 +43,7 @@
   <ItemGroup>
     <Compile Include="BooleanGuards.cs" />
     <Compile Include="CollectionGuards.cs" />
-    <Compile Include="Framework\CommonException.cs" />
-    <Compile Include="Framework\Guard.cs" />
-    <Compile Include="Framework\IValidator.cs" />
-    <Compile Include="Framework\ItemTemplateComposer.cs" />
-    <Compile Include="Framework\LimitGuard.cs" />
-    <Compile Include="Framework\MessageComposer.cs" />
-    <Compile Include="Framework\ItemMessageGuard.cs" />
+    <Compile Include="GuardExtensions.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="Messages\LimitMessageTemplate.cs" />
     <Compile Include="Messages\LimitMessageBuilder.cs" />
@@ -60,7 +54,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StringGuards.cs" />
-    <Compile Include="Framework\GuardExtensions.cs" />
     <Compile Include="NumericGuards.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

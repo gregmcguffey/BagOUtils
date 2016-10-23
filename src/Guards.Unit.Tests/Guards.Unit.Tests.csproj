@@ -53,14 +53,12 @@
     <Compile Include="CollectionGuardTests.cs" />
     <Compile Include="DoubleGuardTests.cs" />
     <Compile Include="FloatGuardTests.cs" />
-    <Compile Include="Framework\ItemTemplateComposerTests.cs" />
-    <Compile Include="Framework\GuardTests.cs" />
+    <Compile Include="GuardExtensionTests.cs" />
     <Compile Include="IntegerGuardTests.cs" />
     <Compile Include="Messages\LimitMessageBuilderTests.cs" />
     <Compile Include="LongGuardTests.cs" />
     <Compile Include="ObjectGuardTests.cs" />
     <Compile Include="StringGuardTests.cs" />
-    <Compile Include="Framework\GuardExtensionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
