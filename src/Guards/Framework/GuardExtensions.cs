@@ -31,10 +31,9 @@ namespace BagOUtils.Guards.Framework
         /// <typeparam name="TException">Type of exception to throw.</typeparam>
         /// <param name="value">Value to check.</param>
         /// <returns>Guard to fluently configure.</returns>
-        public static MessageTemplateGuard<TValue, TException> PrepareMessageTemplateGuard<TValue, TException>(this TValue value)
-            where TException : Exception
+        public static MessageTemplateComposer<TValue> ComposeMessageTemplateGuard<TValue>(this TValue value)
         {
-            var guard = new MessageTemplateGuard<TValue, TException>(value);
+            var guard = new MessageTemplateComposer<TValue>(value);
             return guard;
         }
 
@@ -77,11 +76,10 @@ namespace BagOUtils.Guards.Framework
         /// <typeparam name="TException">Type of exception to throw.</typeparam>
         /// <param name="value">Value to check.</param>
         /// <returns>Guard to fluently configure.</returns>
-        public static MessageGuard<TValue, TException> PrepareMessageGuard<TValue, TException>(this TValue value)
-            where TException : Exception
+        public static MessageComposer<TValue> PrepareMessageGuard<TValue>(this TValue value)
         {
-            var guard = new MessageGuard<TValue, TException>(value);
-            return guard;
+            var composer = new MessageComposer<TValue>(value);
+            return composer;
         }
 
 

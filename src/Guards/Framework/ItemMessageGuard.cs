@@ -11,47 +11,46 @@ namespace BagOUtils.Guards.Framework
     /// the parameter/argument/variable (item) name. The template accepts a single 
     /// token for the item name.
     /// </summary>
-    public class MessageTemplateGuard<TValue, TException>
-        where TException : Exception
+    public class MessageTemplateComposer<TValue>
     {
         private readonly TValue value;
 
         private Func<bool> test;
-        private Func<string, TException> exceptionBuilder;
+        private Func<string, Exception> exceptionBuilder;
         private string template;
         private string nameTemplate;
         private string itemName;
 
-        public MessageTemplateGuard(TValue value)
+        public MessageTemplateComposer(TValue value)
         {
             this.value = value;
         }
 
-        public MessageTemplateGuard<TValue, TException> TestToExecute(Func<bool> test)
+        public MessageTemplateComposer<TValue> TestToExecute(Func<bool> test)
         {
             this.test = test;
             return this;
         }
 
-        public MessageTemplateGuard<TValue, TException> ExceptionBuilder(Func<string, TException> builder)
+        public MessageTemplateComposer<TValue> ExceptionBuilder(Func<string, Exception> builder)
         {
             this.exceptionBuilder = builder;
             return this;
         }
 
-        public MessageTemplateGuard<TValue, TException> TemplateUsed(string template)
+        public MessageTemplateComposer<TValue> TemplateUsed(string template)
         {
             this.template = template;
             return this;
         }
 
-        public MessageTemplateGuard<TValue, TException> NameTemplateUsed(string nameTemplate)
+        public MessageTemplateComposer<TValue> NameTemplateUsed(string nameTemplate)
         {
             this.nameTemplate = nameTemplate;
             return this;
         }
 
-        public MessageTemplateGuard<TValue, TException> ForItem(string itemName)
+        public MessageTemplateComposer<TValue> ForItem(string itemName)
         {
             this.itemName = itemName;
             return this;

@@ -7,39 +7,38 @@ public void GuardIsTrue( this bool value, string item )
     // the ThrowingException method on the factory is used
     // to actually create the guard. Have to do factory value
     // first, then exception to get most out of fluent interface.
-    // I'll need a factory for each type (I think), because in 
+    // I'll need a factory for each type (I think), because in
     // order to make it generic, we're back to needing the exception.
     // Thus, each ThrowingException method will return the correct
     // type of guard.
     value
-        .PrepareMessageTemplateGuard()
-        .ThrowingException<ArgumentException>()
-        .TestToExecute( () => value )
-        .ExceptionBuilder( message => new InvalidOperationException(message)))
+        .ComposeGuardWithItemTemplate()
         .TemplateUsed( "Cannot complete operation. {0} must be true." )
         .NameTemplateUsed( "Cannot complete operation. {item} must be true." )
         .ForItem( item )
+        .TestToExecute( () => value )
+        .ExceptionBuilder( message => CommonException.SimpleArgument(message))
         .Guard();
 }
 
 public void GuardIsTrue( this bool value, string item, string message )
 {
     value
-        .PrepareMessageGuard()
+        .ComposeGuardWithMessage()
         .TestToExecute( () => value )
-        .ExceptionBuilder( () => new InvalidOperationException(message)))
+        .ExceptionBuilder( () => CommonException.InvalidOperation(message))
         .Guard();
 }
 
 public string GuardIsSet( this string text, string item )
 {
     text
-        .PrepareItemTemplateGuard()
-        .TestToExecute( () => !string.IsNullOrEmpty(text) )
-        .ExceptionBuilder( (item, message) => new ArgumentException(message, item)))
+        .ComposeItemGuardWithItemTemplate()
         .TemplateUsed( "{0} must be set to a non-null, non-empty string." )
         .NameTemplateUsed( "{item} must be set to a non-null, non-empty string." )
         .ForItem( item )
+        .TestToExecute( () => !string.IsNullOrEmpty(text) )
+        .ExceptionBuilder( message => CommonException.ArgumentException(item, message)))
         .Guard();
 }
 

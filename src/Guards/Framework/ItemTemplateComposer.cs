@@ -63,10 +63,10 @@ namespace BagOUtils.Guards.Framework
         public TValue Guard()
         {
             var message = BuildMessage(this.itemName, this.template, this.nameTemplate);
-            var guard = new Guard<TValue>(this.value)
+            return new Guard<TValue>(this.value)
                 .ExceptionBuilderUsed(this.exceptionBuilder(this.itemName, message))
-                .Test(this.test);
-            return guard.ValidateAndReturn();
+                .Test(this.test)
+                .ValidateAndReturn();
         }
 
         private string BuildMessage(string itemName, string template, string nameTemplate)
