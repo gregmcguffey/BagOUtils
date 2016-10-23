@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BagOUtils.Guards.Messages;
 
 namespace BagOUtils.Guards
 {
@@ -19,11 +20,35 @@ namespace BagOUtils.Guards
         /// Guard that a collection has at least one element.
         /// </summary>
         /// <param name="collection">Collection to test.</param>
+        /// <param name="itemName">
+        /// Message if the collection fails the test.
+        /// </param>
+        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <remarks>
+        /// This uses an item template for the exception message.
+        /// </remarks>
+        public static ICollection GuardHasElements(this ICollection collection, string itemName)
+        {
+            var message = ItemTemplate
+                 .NoElements
+                 .UsingItem(itemName)
+                 .Prepare();
+
+            return collection.GuardHasElementsWithMessage(message);
+        }
+
+        /// <summary>
+        /// Guard that a collection has at least one element.
+        /// </summary>
+        /// <param name="collection">Collection to test.</param>
         /// <param name="message">
         /// Message if the collection fails the test.
         /// </param>
         /// <exception cref="System.InvalidOperationException"></exception>
-        public static ICollection GuardHasElements(this ICollection collection, string message)
+        /// <remarks>
+        /// This allows a custom message as the exception message.
+        /// </remarks>
+        public static ICollection GuardHasElementsWithMessage(this ICollection collection, string message)
         {
             if (collection.Count == 0)
             {
@@ -40,11 +65,38 @@ namespace BagOUtils.Guards
         /// differently, no casts are needed to use the guards.
         /// </summary>
         /// <param name="collection">Collection to test.</param>
+        /// <param name="itemName">
+        /// Message if the collection fails the test.
+        /// </param>
+        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <remarks>
+        /// This uses an item template for the exception message.
+        /// </remarks>
+        public static ICollection<T> GuardHasItems<T>(this ICollection<T> collection, string itemName)
+        {
+            var message = ItemTemplate
+                .NoItems
+                .UsingItem(itemName)
+                .Prepare();
+            return collection.GuardHasItemsWithMessage(message);
+        }
+
+        /// <summary>
+        /// Guard that a collection has at least one element. This
+        /// handles HashSet. This is named differently than the one for
+        /// ICollection because most of the classes implement both
+        /// standard and generic versions ICollection. By naming them
+        /// differently, no casts are needed to use the guards.
+        /// </summary>
+        /// <param name="collection">Collection to test.</param>
         /// <param name="message">
         /// Message if the collection fails the test.
         /// </param>
         /// <exception cref="System.InvalidOperationException"></exception>
-        public static ICollection<T> GuardHasItems<T>(this ICollection<T> collection, string message)
+        /// <remarks>
+        /// This allows a custom message as the exception message.
+        /// </remarks>
+        public static ICollection<T> GuardHasItemsWithMessage<T>(this ICollection<T> collection, string message)
         {
             if (collection.Count == 0)
             {
@@ -63,7 +115,34 @@ namespace BagOUtils.Guards
         /// Message if the collection fails the test.
         /// </param>
         /// <exception cref="System.InvalidOperationException"></exception>
-        public static ICollection GuardHasAtLeast(this ICollection collection, int minCount, string message)
+        /// <remarks>
+        /// This uses an item template for the exception message.
+        /// </remarks>
+        public static ICollection GuardHasAtLeast(this ICollection collection, int minCount, string itemName)
+        {
+            var message = CustomTemplate
+                .TooFewElements
+                .UsingItem(itemName)
+                .UsingValue(collection.Count)
+                .ComparedTo(minCount)
+                .Prepare();
+            return collection.GuardHasAtLeastWithMessage(minCount, message);
+        }
+
+        /// <summary>
+        /// Guard that a collection has at least some required minimum
+        /// number of elements.
+        /// </summary>
+        /// <param name="collection">Collection to test.</param>
+        /// <param name="minCount">Minimum number of elements.</param>
+        /// <param name="message">
+        /// Message if the collection fails the test.
+        /// </param>
+        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <remarks>
+        /// This allows a custom message as the exception message.
+        /// </remarks>
+        public static ICollection GuardHasAtLeastWithMessage(this ICollection collection, int minCount, string message)
         {
             if (collection.Count < minCount)
             {
@@ -85,7 +164,37 @@ namespace BagOUtils.Guards
         /// Message if the collection fails the test.
         /// </param>
         /// <exception cref="System.InvalidOperationException"></exception>
-        public static ICollection<T> GuardHasAtLeastItems<T>(this ICollection<T> collection, int minCount, string message)
+        /// <remarks>
+        /// This uses an item template for the exception message.
+        /// </remarks>
+        public static ICollection<T> GuardHasAtLeastItems<T>(this ICollection<T> collection, int minCount, string itemName)
+        {
+            var message = CustomTemplate
+                .TooFewElements
+                .UsingItem(itemName)
+                .UsingValue(collection.Count)
+                .ComparedTo(minCount)
+                .Prepare();
+            return collection.GuardHasAtLeastItemsWithMessage(minCount, message);
+        }
+
+        /// <summary>
+        /// Guard that a collection has at least some required minimum
+        /// number of elements. This is named differently than the one
+        /// for ICollection because most of the classes implement both
+        /// standard and generic versions ICollection. By naming them
+        /// differently, no casts are needed to use the guards.
+        /// </summary>
+        /// <param name="collection">Collection to test.</param>
+        /// <param name="minCount">Minimum number of elements.</param>
+        /// <param name="message">
+        /// Message if the collection fails the test.
+        /// </param>
+        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <remarks>
+        /// This allows a custom message as the exception message.
+        /// </remarks>
+        public static ICollection<T> GuardHasAtLeastItemsWithMessage<T>(this ICollection<T> collection, int minCount, string message)
         {
             if (collection.Count < minCount)
             {

@@ -24,6 +24,7 @@ namespace BagOUtils.Guards.Messages
         public static StringSizeTemplate NotRequiredSize
             = new StringSizeTemplate("The '{item}', with a value of '{value}', must be {required-length} character{required-plural} long, but was {value-length} character{value-plural} long.");
 
-        
+        public static SingleValueComparisonTemplate TooFewElements
+            = new SingleValueComparisonTemplate("The collection '{item}' has {value} elements, but must have at least {compare-to} elements.");
     }
 }

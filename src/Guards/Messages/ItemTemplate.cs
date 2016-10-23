@@ -13,7 +13,7 @@ namespace BagOUtils.Guards.Messages
     {
         //-------------------------------------------------------------------------
         //
-        // Defined Item Templates
+        // Defined Message Templates
         //
         //-------------------------------------------------------------------------
 
@@ -22,6 +22,12 @@ namespace BagOUtils.Guards.Messages
 
         public static ItemTemplate NotFalse
             = new ItemTemplate("The operation requires that '{item}' be false, but it is true.");
+
+        public static ItemTemplate NoElements
+            = new ItemTemplate("The collection, '{item}', has no elements.");
+
+        public static ItemTemplate NoItems
+            = new ItemTemplate("The collection, '{item}', has no items.");
 
         //-------------------------------------------------------------------------
         //
