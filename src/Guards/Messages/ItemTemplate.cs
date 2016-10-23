@@ -11,6 +11,24 @@ namespace BagOUtils.Guards.Messages
     /// </summary>
     public class ItemTemplate
     {
+        //-------------------------------------------------------------------------
+        //
+        // Defined Item Templates
+        //
+        //-------------------------------------------------------------------------
+
+        public static ItemTemplate NotTrue
+            = new ItemTemplate("The operation requires that '{item}' be true, but it is false.");
+
+        public static ItemTemplate NotFalse
+            = new ItemTemplate("The operation requires that '{item}' be false, but it is true.");
+
+        //-------------------------------------------------------------------------
+        //
+        // Instance 
+        //
+        //-------------------------------------------------------------------------
+
         private readonly string template;
         private string item;
 
