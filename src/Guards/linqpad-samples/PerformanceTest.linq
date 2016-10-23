@@ -1,8 +1,13 @@
 <Query Kind="Program">
-  <Reference Relative="..\bin\Debug\BagOUtils.Guards.dll">E:\gregmcguffey\BagOUtils\src\Guards\bin\Debug\BagOUtils.Guards.dll</Reference>
+  <Reference Relative="..\bin\Debug\BagOUtils.Guards.dll">D:\gregmcguffey\BagOUtils\src\Guards\bin\Debug\BagOUtils.Guards.dll</Reference>
   <Namespace>BagOUtils.Guards.Framework</Namespace>
 </Query>
 
+/*
+    Testing how much overhead using the Guard class adds.
+    In general, it is pretty fast, but still 4x slower than
+    straight up if.
+*/
 void Main()
 {
     var stopWatch = new Stopwatch();
