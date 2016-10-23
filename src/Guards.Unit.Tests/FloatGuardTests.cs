@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using BagOUtils.Guards;
+using BagOUtils.Guards.Messages;
 
 namespace BagOUtils.Guards.Unit.Tests
 {
@@ -18,8 +19,13 @@ namespace BagOUtils.Guards.Unit.Tests
             var paramName = "param";
             float min = 1;
             float max = 3;
-            var expectedMessage = string.Format("The value, {0}, was not within the expected range of {1} to {2}.", value, min, max);
-
+            var expectedMessage = CustomTemplate
+                .OutOfRange
+                .UsingItem(paramName)
+                .UsingValue(value)
+                .WithMinimum(min)
+                .WithMaximum(max)
+                .Prepare();
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => value.GuardInRange(paramName, min, max));
 
             StringAssert.Contains(expectedMessage, ex.Message);

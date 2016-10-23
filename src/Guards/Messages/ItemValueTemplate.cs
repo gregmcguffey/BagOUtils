@@ -11,6 +11,19 @@ namespace BagOUtils.Guards.Messages
     /// </summary>
     public class ItemValueTemplate
     {
+        //-------------------------------------------------------------------------
+        //
+        // Defined Message Templates
+        //
+        //-------------------------------------------------------------------------
+
+
+        //-------------------------------------------------------------------------
+        //
+        // Instance
+        //
+        //-------------------------------------------------------------------------
+
         private readonly string template;
         private string item;
         private string value;

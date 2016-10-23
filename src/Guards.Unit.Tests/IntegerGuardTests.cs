@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using BagOUtils.Guards;
+using BagOUtils.Guards.Messages;
 
 namespace BagOUtils.Guards.Unit.Tests
 {
@@ -17,8 +17,12 @@ namespace BagOUtils.Guards.Unit.Tests
             int value = -1;
             string paramName = "param";
             int minValue = 0;
-            var expectedMessage = string.Format("The value, -1, is below the minimum limit of {0}.", minValue);
-
+            var expectedMessage = CustomTemplate
+                .BelowMinimum
+                .UsingItem(paramName)
+                .UsingValue(value)
+                .ComparedTo(minValue)
+                .Prepare();
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => value.GuardMinimum(paramName, minValue));
 
             StringAssert.Contains(expectedMessage, ex.Message);
@@ -43,7 +47,12 @@ namespace BagOUtils.Guards.Unit.Tests
             int value = 1;
             string paramName = "param";
             int maxValue = 0;
-            var expectedMessage = string.Format("The value, 1, is above the maximum limit of {0}.", maxValue);
+            var expectedMessage = CustomTemplate
+                .AboveMaximum
+                .UsingItem(paramName)
+                .UsingValue(value)
+                .ComparedTo(maxValue)
+                .Prepare();
 
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => value.GuardMaximum(paramName, maxValue));
 
@@ -70,7 +79,13 @@ namespace BagOUtils.Guards.Unit.Tests
             var paramName = "param";
             int min = 1;
             int max = 3;
-            var expectedMessage = string.Format("The value, {0}, was not within the expected range of {1} to {2}.", value, min, max);
+            var expectedMessage = CustomTemplate
+                .OutOfRange
+                .UsingItem(paramName)
+                .UsingValue(value)
+                .WithMinimum(min)
+                .WithMaximum(max)
+                .Prepare();
 
             var ex = Assert.Throws<ArgumentOutOfRangeException>(() => value.GuardInRange(paramName, min, max));
 

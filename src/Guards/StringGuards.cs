@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BagOUtils.Guards.Messages;
 
 namespace BagOUtils.Guards
 {
@@ -39,8 +40,7 @@ namespace BagOUtils.Guards
 
         /// <summary>
         /// Guard that a string is of the required length. This assumes
-        /// that the length must be greater than zero and that the
-        /// string must be set.
+        /// that the length must be greater than zero.
         /// </summary>
         /// <param name="value">String being tested.</param>
         /// <param name="argumentName">
@@ -50,14 +50,20 @@ namespace BagOUtils.Guards
         /// <returns>The string being tested, to allow fluent interface.</returns>
         public static string GuardRequiredLength(this string value, string argumentName, int requiredLength)
         {
-            //-- Guard that the value is not null, empty or only white space.
-            value.GuardIsSet(argumentName);
-            requiredLength.GuardMinimum(nameof(requiredLength), 1);
+            requiredLength.GuardMinimumWithMessage(nameof(requiredLength), 1, Message.BadGuardRequiredLength);
 
-            int actualLength = value.Length;
+            // Null strings are converted to an empty string.
+            var testedValue = value.NullToEmpty();
+
+            int actualLength = testedValue.Length;
             if (actualLength != requiredLength)
             {
-                var exceptionMessage = $"The text must be {requiredLength} character long, but was {actualLength} character{(actualLength > 1 ? "s" : "")} long.";
+                var exceptionMessage = CustomTemplate
+                    .NotRequiredSize
+                    .UsingItem(argumentName)
+                    .UsingValue(value)
+                    .RequiringLength(requiredLength)
+                    .Prepare();
                 throw new ArgumentOutOfRangeException(argumentName, exceptionMessage);
             }
 

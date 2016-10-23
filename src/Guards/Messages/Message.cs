@@ -9,7 +9,9 @@ namespace BagOUtils.Guards.Messages
     /// <summary>
     /// Contains any static messages used by Guards.
     /// </summary>
-    public static class Messages
+    public static class Message
     {
+        public static string BadGuardRequiredLength
+            = "Guard configured incorrectly. The required length of a string must be greater than zero.";
     }
 }

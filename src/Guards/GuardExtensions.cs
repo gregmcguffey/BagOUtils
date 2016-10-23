@@ -107,19 +107,6 @@ namespace BagOUtils.Guards
 
         //-------------------------------------------------------------------------
         //
-        // Limit Message Initiator
-        //
-        //-------------------------------------------------------------------------
-
-        public static LimitMessageBuilder<T> BuildLimitMessage<T>(this T value)
-          where T : IComparable<T>
-        {
-            return new LimitMessageBuilder<T>(value);
-        }
-
-
-        //-------------------------------------------------------------------------
-        //
         // Null Handlers
         //
         //-------------------------------------------------------------------------

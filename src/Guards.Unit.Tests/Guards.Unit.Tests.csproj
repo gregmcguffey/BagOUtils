@@ -55,7 +55,6 @@
     <Compile Include="FloatGuardTests.cs" />
     <Compile Include="GuardExtensionTests.cs" />
     <Compile Include="IntegerGuardTests.cs" />
-    <Compile Include="Messages\LimitMessageBuilderTests.cs" />
     <Compile Include="LongGuardTests.cs" />
     <Compile Include="ObjectGuardTests.cs" />
     <Compile Include="StringGuardTests.cs" />
@@ -69,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Messages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
