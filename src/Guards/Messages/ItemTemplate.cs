@@ -56,5 +56,10 @@ namespace BagOUtils.Guards.Messages
                 .Replace("{item}", this.item);
             return preparedMessage;
         }
+
+        public Func<string> PrepareDelegate()
+        {
+            return this.Prepare;
+        }
     }
 }

@@ -68,11 +68,7 @@ namespace BagOUtils.Guards.Messages
         /// <returns></returns>
         public Func<string> PrepareDelegate()
         {
-            Func<string> messagePreparer = () =>
-            {
-                return this.Prepare();
-            };
-            return messagePreparer;
+            return this.Prepare;
         }
     }
 }
