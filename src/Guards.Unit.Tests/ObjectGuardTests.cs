@@ -17,9 +17,9 @@ namespace BagOUtils.Guards.Unit.Tests
             //-- any reference type will work.
             string param = null;
             var paramName = "param";
-            var exceptionMessage = "You must provide a parameter.";
+            var exceptionMessage = "The value of 'param' is required but it is null.";
 
-            var ex = Assert.Throws<ArgumentNullException>(() => param.GuardIsNotNull(paramName, exceptionMessage));
+            var ex = Assert.Throws<ArgumentNullException>(() => param.GuardIsNotNull(paramName));
 
             StringAssert.Contains(exceptionMessage, ex.Message);
         }
@@ -31,7 +31,7 @@ namespace BagOUtils.Guards.Unit.Tests
             var paramName = "param";
             var exceptionMessage = "You must provide a parameter.";
 
-            var returned = param.GuardIsNotNull(paramName, exceptionMessage);
+            var returned = param.GuardIsNotNull(paramName);
 
             Assert.AreSame(param, returned);
         }
@@ -42,9 +42,8 @@ namespace BagOUtils.Guards.Unit.Tests
             // Test if an item that can't be null, works.
             int param = 1;
             var paramName = "param";
-            var exceptionMessage = "Should never see this if value can't be null.";
 
-            var returned = param.GuardIsNotNull(paramName, exceptionMessage);
+            var returned = param.GuardIsNotNull(paramName);
 
             Assert.AreEqual(param, returned);
         }
@@ -54,9 +53,14 @@ namespace BagOUtils.Guards.Unit.Tests
         {
             //-- any reference type will work.
             string param = null;
-            var exceptionMessage = "The following operation can't be completed.";
+            var paramName = "param";
+            var operation = "operation";
+            var exceptionMessage = "The operation, 'operation', requires a value for 'param' which is null.";
 
-            var ex = Assert.Throws<InvalidOperationException>(() => param.GuardIsRequiredForOperation(exceptionMessage));
+            var ex = Assert.Throws<InvalidOperationException>(() =>
+            {
+                param.GuardIsRequiredForOperation(paramName, operation);
+            });
 
             StringAssert.Contains(exceptionMessage, ex.Message);
         }
@@ -65,9 +69,10 @@ namespace BagOUtils.Guards.Unit.Tests
         public void GuardIsRequiredForOperation_WithItem_ReturnsItem()
         {
             var param = "hello World";
-            var exceptionMessage = "The following operation can't be completed.";
+            var operation = "operation";
+            var exceptionMessage = "The operation, 'hello World', requires a value for 'operation' which is null.";
 
-            var returned = param.GuardIsRequiredForOperation(exceptionMessage);
+            var returned = param.GuardIsRequiredForOperation(param, operation);
 
             Assert.AreSame(param, returned);
         }
@@ -77,9 +82,10 @@ namespace BagOUtils.Guards.Unit.Tests
         {
             // Test if an item that can't be null, works.
             int param = 1;
-            var exceptionMessage = "Should never see this if value can't be null.";
+            var paramName = "param";
+            var operation = "operation";
 
-            var returned = param.GuardIsRequiredForOperation(exceptionMessage);
+            var returned = param.GuardIsRequiredForOperation(paramName, operation);
 
             Assert.AreEqual(param, returned);
         }
@@ -93,7 +99,9 @@ namespace BagOUtils.Guards.Unit.Tests
             var paramName = "param";
 
             // Act
-            var ex = Assert.Throws<ArgumentNullException>(() => nullItem.GuardIsNotDefault<string>(paramName));
+            var ex = Assert.Throws<ArgumentNullException>(
+                () => nullItem.GuardIsNotDefault<string>(paramName)
+                );
 
             // Assert
             StringAssert.Contains(expected: nullMessage, actual: ex.Message);
@@ -103,7 +111,7 @@ namespace BagOUtils.Guards.Unit.Tests
         public void GuardIsNotDefault_WithDefaultInt_ThrowsException()
         {
             // Arrange
-            var defaultMessage = "The item cannot be the default value for this type (Int32).";
+            var defaultMessage = "The value of 'param' cannot be the default value for its type (Int32).";
             int defaultItem = default(int);
             var paramName = "param";
 

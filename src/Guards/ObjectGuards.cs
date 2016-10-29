@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BagOUtils.Guards.Messages;
 
 namespace BagOUtils.Guards
 {
@@ -32,11 +33,36 @@ namespace BagOUtils.Guards
         /// The object is returned to allow a fluent interface with
         /// other guards.
         /// </returns>
-        public static object GuardIsNotNull(this object item, string argumentName, string exceptionMessage)
+        public static object GuardIsNotNull(this object item, string argumentName)
+        {
+            var message = ItemTemplate
+                .IsNull
+                .UsingItem(argumentName)
+                .Prepare();
+
+            return item
+                .GuardIsNotNullWithMessage(argumentName, message);
+        }
+
+        /// <summary>
+        /// Guard that the item is not null.
+        /// </summary>
+        /// <param name="item">Item guard is called on.</param>
+        /// <param name="argumentName">
+        /// Name of argument/parameter/state that is being guarded.
+        /// </param>
+        /// <param name="message">
+        /// Exception message if the item is null.
+        /// </param>
+        /// <returns>
+        /// The object is returned to allow a fluent interface with
+        /// other guards.
+        /// </returns>
+        public static object GuardIsNotNullWithMessage(this object item, string argumentName, string message)
         {
             if (item == null)
             {
-                throw new ArgumentNullException(argumentName, exceptionMessage);
+                throw new ArgumentNullException(argumentName, message);
             }
 
             return item;
@@ -47,18 +73,41 @@ namespace BagOUtils.Guards
         /// This tests that the item is null and if it is, throws an exception.
         /// </summary>
         /// <param name="item">Item guard is called on.</param>
-        /// <param name="exceptionMessage">
+        /// <param name="argumentName">Name of argument.</param>
+        /// <param name="operation">The operation requiring a value.</param>
+        /// <returns>
+        /// The object is returned to allow a fluent interface with
+        /// other guards.
+        /// </returns>
+        public static object GuardIsRequiredForOperation(this object item, string argumentName, string operation)
+        {
+            var message = ItemValueTemplate
+                .MissingForOperation
+                .UsingItem(argumentName)
+                .UsingValue(operation)
+                .Prepare();
+
+            return item
+                .GuardIsRequiredForOperationWithMessage(message);
+        }
+
+        /// <summary>
+        /// Guard that a required item is available for an operation.
+        /// This tests that the item is null and if it is, throws an exception.
+        /// </summary>
+        /// <param name="item">Item guard is called on.</param>
+        /// <param name="message">
         /// Message explaining why the operation is invalid.
         /// </param>
         /// <returns>
         /// The object is returned to allow a fluent interface with
         /// other guards.
         /// </returns>
-        public static object GuardIsRequiredForOperation(this object item, string exceptionMessage)
+        public static object GuardIsRequiredForOperationWithMessage(this object item, string message)
         {
             if (item == null)
             {
-                throw new InvalidOperationException(exceptionMessage);
+                throw new InvalidOperationException(message);
             }
 
             return item;
@@ -68,7 +117,7 @@ namespace BagOUtils.Guards
         /// Guard that an item is not the default for it's type.
         /// </summary>
         /// <param name="item">Item guard is called on.</param>
-        /// <param name="paramName">
+        /// <param name="argumentName">
         /// Name provided to help consumer of exception identify the problem.
         /// </param>
         /// <returns>
@@ -79,21 +128,47 @@ namespace BagOUtils.Guards
         /// For reference types, this is essentially the same as the
         /// GuardIsNotNull() method.
         /// </remarks>
-        public static T GuardIsNotDefault<T>(this T item, string paramName)
+        public static T GuardIsNotDefault<T>(this T item, string argumentName)
+        {
+            var message = ItemValueTemplate
+                .DefaultNotAllowed
+                .UsingItem(argumentName)
+                .UsingValue(typeof(T).Name)
+                .Prepare();
+
+            return item
+                .GuardIsNotDefaultWithMessage(argumentName, message);
+        }
+
+        /// <summary>
+        /// Guard that an item is not the default for it's type.
+        /// </summary>
+        /// <param name="item">Item guard is called on.</param>
+        /// <param name="argumentName">
+        /// Name provided to help consumer of exception identify the problem.
+        /// </param>
+        /// <returns>
+        /// The object is returned to allow a fluent interface with
+        /// other guards.
+        /// </returns>
+        /// <remarks>
+        /// For reference types, this is essentially the same as the
+        /// GuardIsNotNull() method.
+        /// </remarks>
+        public static T GuardIsNotDefaultWithMessage<T>(this T item, string argumentName, string message)
         {
             if (typeof(T).IsValueType)
             {
                 if (item.Equals(default(T)))
                 {
-                    var exMessage = $"The item cannot be the default value for this type ({typeof(T).Name}).";
-                    throw new ArgumentException(exMessage, paramName);
+                    throw new ArgumentException(message, argumentName);
                 }
             }
             else
             {
                 if (item == null)
                 {
-                    throw new ArgumentNullException(paramName, "The item cannot be null.");
+                    throw new ArgumentNullException(argumentName, "The item cannot be null.");
                 }
             }
 

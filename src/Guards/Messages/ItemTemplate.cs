@@ -29,6 +29,9 @@ namespace BagOUtils.Guards.Messages
         public static ItemTemplate NoItems
             = new ItemTemplate("The collection, '{item}', has no items.");
 
+        public static ItemTemplate IsNull
+            = new ItemTemplate("The value of '{item}' is required but it is null.");
+
         //-------------------------------------------------------------------------
         //
         // Instance 

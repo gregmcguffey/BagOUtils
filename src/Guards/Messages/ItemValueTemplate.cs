@@ -9,6 +9,11 @@ namespace BagOUtils.Guards.Messages
     /// <summary>
     /// Define a template that that takes an item name and the value of the item.
     /// </summary>
+    /// <remarks>
+    /// This can be used templates that need the item and then some othe information
+    /// also. E.g. the name of the arguemnt and an operation that requires it or the
+    /// name of an argument and type of that argument.
+    /// </remarks>
     public class ItemValueTemplate
     {
         //-------------------------------------------------------------------------
@@ -17,6 +22,11 @@ namespace BagOUtils.Guards.Messages
         //
         //-------------------------------------------------------------------------
 
+        public static ItemValueTemplate MissingForOperation
+            = new ItemValueTemplate("The operation, '{value}', requires a value for '{item}' which is null.");
+
+        public static ItemValueTemplate DefaultNotAllowed
+            = new ItemValueTemplate("The value of '{item}' cannot be the default value for its type ({value}).");
 
         //-------------------------------------------------------------------------
         //
