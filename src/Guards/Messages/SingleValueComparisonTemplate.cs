@@ -44,6 +44,11 @@ namespace BagOUtils.Guards.Messages
             return this;
         }
 
+        /// <summary>
+        /// Prepare the message with the tokens in the template replaced
+        /// by the set values.
+        /// </summary>
+        /// <returns></returns>
         public string Prepare()
         {
             var preparedMessage = this
@@ -54,6 +59,20 @@ namespace BagOUtils.Guards.Messages
                 .Replace("{value-plural}", "s")
                 .Replace("{compared-to-plural}", "s");
             return preparedMessage;
+        }
+
+        /// <summary>
+        /// Return a delegate that will return the message with the tokens
+        /// in the template replaced by the previously set values.
+        /// </summary>
+        /// <returns></returns>
+        public Func<string> PrepareDelegate()
+        {
+            Func<string> messagePreparer = () =>
+            {
+                return this.Prepare();
+            };
+            return messagePreparer;
         }
     }
 }

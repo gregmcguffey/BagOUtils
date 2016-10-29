@@ -90,15 +90,38 @@ namespace BagOUtils.Guards
         /// </returns>
         public static T GuardMaximum<T>(this T value, string argumentName, T maximumValue) where T : IComparable<T>
         {
+            var message = CustomTemplate
+                .AboveMaximum
+                .UsingItem(argumentName)
+                .UsingValue(value)
+                .ComparedTo(maximumValue)
+                .Prepare();
+
+            return value
+                .GuardMaximumWithMessage(argumentName, maximumValue, message);
+        }
+
+        /// <summary>
+        /// Guard that a numeric value is equal to or less than the
+        /// maximum value and use the provided message if it is not.
+        /// </summary>
+        /// <param name="value">
+        /// Value to test.
+        /// </param>
+        /// <param name="argumentName">
+        /// Name of argument/parameter/state being tested.
+        /// </param>
+        /// <param name="minimumValue">
+        /// Maximum acceptable value.
+        /// </param>
+        /// <returns>
+        /// The value is returned if it is valid.
+        /// </returns>
+        public static T GuardMaximumWithMessage<T>(this T value, string argumentName, T maximumValue, string message) where T : IComparable<T>
+        {
             if (value.GreaterThan(maximumValue))
             {
-                var exMessage = CustomTemplate
-                    .AboveMaximum
-                    .UsingItem(argumentName)
-                    .UsingValue(value)
-                    .ComparedTo(maximumValue)
-                    .Prepare();
-                throw new ArgumentOutOfRangeException(argumentName, exMessage);
+                throw new ArgumentOutOfRangeException(argumentName, maximumValue, message);
             }
 
             return value;
