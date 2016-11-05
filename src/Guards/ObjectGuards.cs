@@ -35,13 +35,17 @@ namespace BagOUtils.Guards
         /// </returns>
         public static object GuardIsNotNull(this object item, string argumentName)
         {
-            var message = ItemTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = ItemTemplate
                 .IsNull
                 .UsingItem(argumentName)
                 .Prepare();
+                return message;
+            };
 
             return item
-                .GuardIsNotNullWithMessage(argumentName, message);
+                .GuardIsNotNullWithMessage(argumentName, messageBuilder);
         }
 
         /// <summary>
@@ -58,11 +62,11 @@ namespace BagOUtils.Guards
         /// The object is returned to allow a fluent interface with
         /// other guards.
         /// </returns>
-        public static object GuardIsNotNullWithMessage(this object item, string argumentName, string message)
+        public static object GuardIsNotNullWithMessage(this object item, string argumentName, Func<string> messageBuilder)
         {
             if (item == null)
             {
-                throw new ArgumentNullException(argumentName, message);
+                throw new ArgumentNullException(argumentName, messageBuilder());
             }
 
             return item;
@@ -81,14 +85,18 @@ namespace BagOUtils.Guards
         /// </returns>
         public static object GuardIsRequiredForOperation(this object item, string argumentName, string operation)
         {
-            var message = ItemValueTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = ItemValueTemplate
                 .MissingForOperation
                 .UsingItem(argumentName)
                 .UsingValue(operation)
                 .Prepare();
+                return message;
+            };
 
             return item
-                .GuardIsRequiredForOperationWithMessage(message);
+                .GuardIsRequiredForOperationWithMessage(messageBuilder);
         }
 
         /// <summary>
@@ -103,11 +111,11 @@ namespace BagOUtils.Guards
         /// The object is returned to allow a fluent interface with
         /// other guards.
         /// </returns>
-        public static object GuardIsRequiredForOperationWithMessage(this object item, string message)
+        public static object GuardIsRequiredForOperationWithMessage(this object item, Func<string> messageBuilder)
         {
             if (item == null)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(messageBuilder());
             }
 
             return item;
@@ -130,14 +138,18 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static T GuardIsNotDefault<T>(this T item, string argumentName)
         {
-            var message = ItemValueTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = ItemValueTemplate
                 .DefaultNotAllowed
                 .UsingItem(argumentName)
                 .UsingValue(typeof(T).Name)
                 .Prepare();
+                return message;
+            };
 
             return item
-                .GuardIsNotDefaultWithMessage(argumentName, message);
+                .GuardIsNotDefaultWithMessage(argumentName, messageBuilder);
         }
 
         /// <summary>
@@ -155,20 +167,20 @@ namespace BagOUtils.Guards
         /// For reference types, this is essentially the same as the
         /// GuardIsNotNull() method.
         /// </remarks>
-        public static T GuardIsNotDefaultWithMessage<T>(this T item, string argumentName, string message)
+        public static T GuardIsNotDefaultWithMessage<T>(this T item, string argumentName, Func<string> messageBuilder)
         {
             if (typeof(T).IsValueType)
             {
                 if (item.Equals(default(T)))
                 {
-                    throw new ArgumentException(message, argumentName);
+                    throw new ArgumentException(messageBuilder(), argumentName);
                 }
             }
             else
             {
                 if (item == null)
                 {
-                    throw new ArgumentNullException(argumentName, "The item cannot be null.");
+                    throw new ArgumentNullException(argumentName, messageBuilder());
                 }
             }
 

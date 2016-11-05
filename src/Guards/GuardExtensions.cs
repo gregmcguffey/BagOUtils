@@ -107,14 +107,18 @@ namespace BagOUtils.Guards
 
         //-------------------------------------------------------------------------
         //
-        // Null Handlers
+        // Internal Extensions
+        // Many of these will likely be implemented in other utility libraries.
         //
         //-------------------------------------------------------------------------
 
         /// <summary>
-        /// Check a string to see if it is null. If it is, return an empty string.
+        /// Ensure that a string is not null.
         /// </summary>
-        public static string NullToEmpty(this string possibleNullString)
+        /// <returns>
+        /// Original string if it is not null. If it is null, an empty string.
+        /// </returns>
+        internal static string NullToEmpty(this string possibleNullString)
         {
             var fixedString = possibleNullString;
             if (possibleNullString == null)
@@ -124,7 +128,13 @@ namespace BagOUtils.Guards
             return fixedString;
         }
 
-        public static string NullToEmpty(this object possibleNullObject)
+        /// <summary>
+        /// Ensure that calling ToString() on an object doesn't return a null.
+        /// </summary>
+        /// <returns>
+        /// ToString() of object if it is not null. If it is null, an empty string.
+        /// </returns>
+        internal static string NullToEmpty(this object possibleNullObject)
         {
             var objectString = string.Empty;
             if (possibleNullObject != null)
@@ -132,6 +142,18 @@ namespace BagOUtils.Guards
                 objectString = possibleNullObject.ToString();
             }
             return objectString;
+        }
+
+        /// <summary>
+        /// Return a lambda (delegate) that simply returns the
+        /// value.
+        /// </summary>
+        /// <typeparam name="T">Type of value.</typeparam>
+        /// <param name="value">Value to return.</param>
+        /// <returns>Lambda that returns the value.</returns>
+        internal static Func<T> ToLambda<T>(this T value)
+        {
+            return () => value;
         }
     }
 }

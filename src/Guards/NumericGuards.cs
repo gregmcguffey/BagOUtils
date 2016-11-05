@@ -36,14 +36,19 @@ namespace BagOUtils.Guards
         public static T GuardMinimum<T>(this T value, string argumentName, T minimumValue)
             where T : IComparable<T>
         {
-            var message = CustomTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = CustomTemplate
                 .BelowMinimum
                 .UsingItem(argumentName)
                 .UsingValue(value)
                 .ComparedTo(minimumValue)
                 .Prepare();
+                return message;
+            };
+
             return value
-                .GuardMinimumWithMessage(argumentName, minimumValue, message);
+                .GuardMinimumWithMessage(argumentName, minimumValue, messageBuilder);
         }
 
         /// <summary>
@@ -61,12 +66,12 @@ namespace BagOUtils.Guards
         /// <returns>
         /// The value is returned if it is valid.
         /// </returns>
-        public static T GuardMinimumWithMessage<T>(this T value, string argumentName, T minimumValue, string message)
+        public static T GuardMinimumWithMessage<T>(this T value, string argumentName, T minimumValue, Func<string> messageBuilder)
             where T : IComparable<T>
         {
             if (value.LessThan(minimumValue))
             {
-                throw new ArgumentOutOfRangeException(argumentName, message);
+                throw new ArgumentOutOfRangeException(argumentName, messageBuilder());
             }
 
             return value;
@@ -88,17 +93,22 @@ namespace BagOUtils.Guards
         /// <returns>
         /// The value is returned if it is valid.
         /// </returns>
-        public static T GuardMaximum<T>(this T value, string argumentName, T maximumValue) where T : IComparable<T>
+        public static T GuardMaximum<T>(this T value, string argumentName, T maximumValue)
+            where T : IComparable<T>
         {
-            var message = CustomTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = CustomTemplate
                 .AboveMaximum
                 .UsingItem(argumentName)
                 .UsingValue(value)
                 .ComparedTo(maximumValue)
                 .Prepare();
+                return message;
+            };
 
             return value
-                .GuardMaximumWithMessage(argumentName, maximumValue, message);
+                .GuardMaximumWithMessage(argumentName, maximumValue, messageBuilder);
         }
 
         /// <summary>
@@ -117,11 +127,12 @@ namespace BagOUtils.Guards
         /// <returns>
         /// The value is returned if it is valid.
         /// </returns>
-        public static T GuardMaximumWithMessage<T>(this T value, string argumentName, T maximumValue, string message) where T : IComparable<T>
+        public static T GuardMaximumWithMessage<T>(this T value, string argumentName, T maximumValue, Func<string> messageBuilder)
+            where T : IComparable<T>
         {
             if (value.GreaterThan(maximumValue))
             {
-                throw new ArgumentOutOfRangeException(argumentName, maximumValue, message);
+                throw new ArgumentOutOfRangeException(argumentName, maximumValue, messageBuilder());
             }
 
             return value;
@@ -142,16 +153,22 @@ namespace BagOUtils.Guards
         /// <param name="upperLimit">
         /// Upper limit of valid values.
         /// </param>
-        public static T GuardInRange<T>(this T value, string argumentName, T lowerLimit, T upperLimit) where T : IComparable<T>
+        public static T GuardInRange<T>(this T value, string argumentName, T lowerLimit, T upperLimit)
+            where T : IComparable<T>
         {
-            var exMessage = CustomTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = CustomTemplate
                 .OutOfRange
                 .UsingItem(argumentName)
                 .WithMinimum(lowerLimit)
                 .WithMaximum(upperLimit)
                 .Prepare();
+                return message;
+            };
+
             return value
-                .GuardInRangeWithMessage(argumentName, lowerLimit, upperLimit, exMessage);
+                .GuardInRangeWithMessage(argumentName, lowerLimit, upperLimit, messageBuilder);
         }
 
         /// <summary>
@@ -169,12 +186,12 @@ namespace BagOUtils.Guards
         /// <param name="upperLimit">
         /// Upper limit of valid values.
         /// </param>
-        public static T GuardInRangeWithMessage<T>(this T value, string argumentName, T lowerLimit, T upperLimit, string message)
+        public static T GuardInRangeWithMessage<T>(this T value, string argumentName, T lowerLimit, T upperLimit, Func<string> messageBuilder)
             where T : IComparable<T>
         {
             if (value.LessThan(lowerLimit) || value.GreaterThan(upperLimit))
             {
-                throw new ArgumentOutOfRangeException(argumentName, message);
+                throw new ArgumentOutOfRangeException(argumentName, messageBuilder());
             }
             return value;
         }

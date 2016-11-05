@@ -33,13 +33,17 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static string GuardIsSet(this string value, string argumentName)
         {
-            var message = ItemTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = ItemTemplate
                 .IsSet
                 .UsingItem(argumentName)
                 .Prepare();
+                return message;
+            };
 
             return value
-                .GuardIsSetWithMessage(argumentName, message);
+                .GuardIsSetWithMessage(argumentName, messageBuilder);
         }
 
         /// <summary>
@@ -54,11 +58,11 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This uses a custom message.
         /// </remarks>
-        public static string GuardIsSetWithMessage(this string value, string argumentName, string message)
+        public static string GuardIsSetWithMessage(this string value, string argumentName, Func<string> messageBuilder)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                throw new ArgumentException(message, argumentName);
+                throw new ArgumentException(messageBuilder(), argumentName);
             }
 
             return value;
@@ -79,15 +83,19 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static string GuardRequiredLength(this string value, string argumentName, int requiredLength)
         {
-            var message = CustomTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = CustomTemplate
                 .NotRequiredSize
                 .UsingItem(argumentName)
                 .UsingValue(value)
                 .RequiringLength(requiredLength)
                 .Prepare();
+                return message;
+            };
 
             return value
-                .GuardRequiredLengthWithMessage(argumentName, requiredLength, message);
+                .GuardRequiredLengthWithMessage(argumentName, requiredLength, messageBuilder);
         }
 
         /// <summary>
@@ -103,9 +111,9 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This uses the NotRequiredSize item template.
         /// </remarks>
-        public static string GuardRequiredLengthWithMessage(this string value, string argumentName, int requiredLength, string message)
+        public static string GuardRequiredLengthWithMessage(this string value, string argumentName, int requiredLength, Func<string> messageBuilder)
         {
-            requiredLength.GuardMinimumWithMessage(nameof(requiredLength), 1, Message.BadGuardRequiredLength);
+            requiredLength.GuardMinimumWithMessage(nameof(requiredLength), 1, Message.BadGuardRequiredLength.ToLambda());
 
             // Null strings are converted to an empty string.
             var testedValue = value.NullToEmpty();
@@ -113,7 +121,7 @@ namespace BagOUtils.Guards
             int actualLength = testedValue.Length;
             if (actualLength != requiredLength)
             {
-                throw new ArgumentOutOfRangeException(argumentName, message);
+                throw new ArgumentOutOfRangeException(argumentName, messageBuilder());
             }
 
             return value;
@@ -134,16 +142,20 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static string GuardSize(this string value, string argumentName, int min, int max)
         {
-            var message = CustomTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = CustomTemplate
                 .TextSizeOutOfRange
                 .UsingItem(argumentName)
                 .UsingValue(value)
                 .WithMinimum(min)
                 .WithMaximum(max)
                 .Prepare();
+                return message;
+            };
 
             return value
-                .GuardSizeWithMessage(argumentName, min, max, message);
+                .GuardSizeWithMessage(argumentName, min, max, messageBuilder);
         }
 
         /// <summary>
@@ -159,13 +171,13 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This uses the TextSizeOutOfRange custom template message.
         /// </remarks>
-        public static string GuardSizeWithMessage(this string value, string argumentName, int min, int max, string message)
+        public static string GuardSizeWithMessage(this string value, string argumentName, int min, int max, Func<string> messageBuilder)
         {
             int actualSize = value?.Length ?? 0;
             var isCorrectSize = min <= actualSize && actualSize <= max;
             if (!isCorrectSize)
             {
-                throw new ArgumentException(message, argumentName);
+                throw new ArgumentException(messageBuilder(), argumentName);
             }
 
             return value;

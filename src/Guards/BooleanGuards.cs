@@ -38,11 +38,15 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static void GuardIsTrue(this bool flag, string itemName)
         {
-            var message = ItemTemplate
-                .NotTrue
-                .UsingItem(itemName)
-                .Prepare();
-            flag.GuardIsTrueWithMessage(message);
+            Func<string> messageBuilder = () =>
+            {
+                var message = ItemTemplate
+                    .NotTrue
+                    .UsingItem(itemName)
+                    .Prepare();
+                return message;
+            };
+            flag.GuardIsTrueWithMessage(messageBuilder);
         }
 
         /// <summary>
@@ -58,11 +62,11 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This uses the provided message as the exception message.
         /// </remarks>
-        public static void GuardIsTrueWithMessage(this bool flag, string message)
+        public static void GuardIsTrueWithMessage(this bool flag, Func<string> messageBuilder)
         {
             if (!flag)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(messageBuilder());
             }
         }
 
@@ -81,11 +85,16 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static void GuardIsFalse(this bool flag, string itemName)
         {
-            var message = ItemTemplate
-                .NotFalse
-                .UsingItem(itemName)
-                .Prepare();
-            flag.GuardIsFalseWithMessage(message);
+            Func<string> messageBuilder = () =>
+            {
+                var message = ItemTemplate
+                    .NotFalse
+                    .UsingItem(itemName)
+                    .Prepare();
+                return message;
+            };
+
+            flag.GuardIsFalseWithMessage(messageBuilder);
         }
 
         /// <summary>
@@ -101,11 +110,11 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This uses the provided message as the exception message.
         /// </remarks>
-        public static void GuardIsFalseWithMessage(this bool flag, string message)
+        public static void GuardIsFalseWithMessage(this bool flag, Func<string> messageBuilder)
         {
             if (flag)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(messageBuilder());
             }
         }
     }

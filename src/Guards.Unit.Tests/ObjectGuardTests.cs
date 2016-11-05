@@ -120,9 +120,13 @@ namespace BagOUtils.Guards.Unit.Tests
         public void GuardIsNotDefault_WithNullObject_ThrowsException()
         {
             // Arrange
-            var nullMessage = "The item cannot be null.";
             string nullItem = null;
             var paramName = "param";
+            var nullMessage = ItemValueTemplate
+                .DefaultNotAllowed
+                .UsingItem(paramName)
+                .UsingValue(typeof(string).Name)
+                .Prepare();
 
             // Act
             var ex = Assert.Throws<ArgumentNullException>(
@@ -137,9 +141,13 @@ namespace BagOUtils.Guards.Unit.Tests
         public void GuardIsNotDefault_WithDefaultInt_ThrowsException()
         {
             // Arrange
-            var defaultMessage = "The value of 'param' cannot be the default value for its type (Int32).";
             int defaultItem = default(int);
             var paramName = "param";
+            var defaultMessage = ItemValueTemplate
+                .DefaultNotAllowed
+                .UsingItem(paramName)
+                .UsingValue(typeof(int).Name)
+                .Prepare();
 
             // Act
             var ex = Assert.Throws<ArgumentException>(() => defaultItem.GuardIsNotDefault<int>(paramName));

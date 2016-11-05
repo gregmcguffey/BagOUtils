@@ -29,12 +29,17 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static ICollection GuardHasElements(this ICollection collection, string itemName)
         {
-            var message = ItemTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = ItemTemplate
                  .NoElements
                  .UsingItem(itemName)
                  .Prepare();
 
-            return collection.GuardHasElementsWithMessage(message);
+                return message;
+            };
+
+            return collection.GuardHasElementsWithMessage(messageBuilder);
         }
 
         /// <summary>
@@ -48,11 +53,11 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This allows a custom message as the exception message.
         /// </remarks>
-        public static ICollection GuardHasElementsWithMessage(this ICollection collection, string message)
+        public static ICollection GuardHasElementsWithMessage(this ICollection collection, Func<string> messageBuilder)
         {
             if (collection.Count == 0)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(messageBuilder());
             }
             return collection;
         }
@@ -74,11 +79,16 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static ICollection<T> GuardHasItems<T>(this ICollection<T> collection, string itemName)
         {
-            var message = ItemTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = ItemTemplate
                 .NoItems
                 .UsingItem(itemName)
                 .Prepare();
-            return collection.GuardHasItemsWithMessage(message);
+                return message;
+            };
+
+            return collection.GuardHasItemsWithMessage(messageBuilder);
         }
 
         /// <summary>
@@ -96,11 +106,11 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This allows a custom message as the exception message.
         /// </remarks>
-        public static ICollection<T> GuardHasItemsWithMessage<T>(this ICollection<T> collection, string message)
+        public static ICollection<T> GuardHasItemsWithMessage<T>(this ICollection<T> collection, Func<string> messageBuilder)
         {
             if (collection.Count == 0)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(messageBuilder());
             }
             return collection;
         }
@@ -120,13 +130,18 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static ICollection GuardHasAtLeast(this ICollection collection, int minCount, string itemName)
         {
-            var message = CustomTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = CustomTemplate
                 .TooFewElements
                 .UsingItem(itemName)
                 .UsingValue(collection.Count)
                 .ComparedTo(minCount)
                 .Prepare();
-            return collection.GuardHasAtLeastWithMessage(minCount, message);
+                return message;
+            };
+
+            return collection.GuardHasAtLeastWithMessage(minCount, messageBuilder);
         }
 
         /// <summary>
@@ -142,11 +157,11 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This allows a custom message as the exception message.
         /// </remarks>
-        public static ICollection GuardHasAtLeastWithMessage(this ICollection collection, int minCount, string message)
+        public static ICollection GuardHasAtLeastWithMessage(this ICollection collection, int minCount, Func<string> messageBuilder)
         {
             if (collection.Count < minCount)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(messageBuilder());
             }
             return collection;
         }
@@ -169,13 +184,18 @@ namespace BagOUtils.Guards
         /// </remarks>
         public static ICollection<T> GuardHasAtLeastItems<T>(this ICollection<T> collection, int minCount, string itemName)
         {
-            var message = CustomTemplate
+            Func<string> messageBuilder = () =>
+            {
+                var message = CustomTemplate
                 .TooFewElements
                 .UsingItem(itemName)
                 .UsingValue(collection.Count)
                 .ComparedTo(minCount)
                 .Prepare();
-            return collection.GuardHasAtLeastItemsWithMessage(minCount, message);
+                return message;
+            };
+
+            return collection.GuardHasAtLeastItemsWithMessage(minCount, messageBuilder);
         }
 
         /// <summary>
@@ -194,11 +214,11 @@ namespace BagOUtils.Guards
         /// <remarks>
         /// This allows a custom message as the exception message.
         /// </remarks>
-        public static ICollection<T> GuardHasAtLeastItemsWithMessage<T>(this ICollection<T> collection, int minCount, string message)
+        public static ICollection<T> GuardHasAtLeastItemsWithMessage<T>(this ICollection<T> collection, int minCount, Func<string> messageBuilder)
         {
             if (collection.Count < minCount)
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidOperationException(messageBuilder());
             }
             return collection;
         }
