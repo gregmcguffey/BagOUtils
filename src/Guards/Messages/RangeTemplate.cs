@@ -57,10 +57,5 @@ namespace BagOUtils.Guards.Messages
                 .Replace("{max}", this.maxValue);
             return preparedMessage;
         }
-
-        public Func<string> PrepareDelegate()
-        {
-            return this.Prepare;
-        }
     }
 }

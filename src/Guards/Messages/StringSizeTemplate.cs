@@ -58,11 +58,6 @@ namespace BagOUtils.Guards.Messages
             return preparedMessage;
         }
 
-        public Func<string> PrepareDelegate()
-        {
-            return this.Prepare;
-        }
-
         private string ValuePluralSuffix
         {
             get
