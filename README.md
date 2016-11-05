@@ -9,7 +9,8 @@ can then be used to reduce the number of _dlls_ that need to be deployed.
 
 The following utilities are provided. See the _readme_ under each project for more information.
 
-Project | NuGet Name       | Purpose
---------|------------------|---------------------------------------------------------------
-Guards  | BagOUtils-Guards | Checks arguments are valid and if not, throws exceptions.
+Project            | NuGet Name                   | Purpose
+-------------------|------------------------------|---------------------------------------------------------------
+ConfigurationCache | BagOUtils-ConfigurationCache | Caching mechanism for configuration values.
+Guards             | BagOUtils-Guards             | Checks arguments are valid and if not, throws exceptions.
 

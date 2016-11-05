@@ -17,7 +17,7 @@ These are implemented as *guards*. This means that some validation logic is chec
 and if the logic fails, an exception is throuwn.
 
 ## API
-The following *guards* are available.
+The following *guards* are available and they use a standard exception.
 
 Type | Method | Use
 -----|--------|-------
@@ -36,3 +36,6 @@ object | GuardIsNotDefault | Guard that an object is not null or equal to the de
 string | GuardIsSet | Guard that a string is not null, not an empty string and not a string of only white spaced.
 string | GuardRequiredLength | Guard that a string is exactly the required length.
 string | GuardSize | Guard that length of a string is within required range.
+
+### Custom Exception Messages
+All of the guards have a `WithMessage` variant that accepts a lambda that provides the message.
