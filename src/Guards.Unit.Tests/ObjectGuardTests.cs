@@ -11,6 +11,12 @@ namespace BagOUtils.Guards.Unit.Tests
     [TestFixture]
     public class ObjectGuardTests
     {
+        //-------------------------------------------------------------------------
+        //
+        // GuardIsNotNull Tests
+        //
+        //-------------------------------------------------------------------------
+
         [Test]
         public void GuardIsNotNull_WithNull_ThrowsException()
         {
@@ -47,6 +53,13 @@ namespace BagOUtils.Guards.Unit.Tests
 
             Assert.AreEqual(param, returned);
         }
+
+
+        //-------------------------------------------------------------------------
+        //
+        // GuardIsRequiredForOperation Tests
+        //
+        //-------------------------------------------------------------------------
 
         [Test]
         public void GuardIsRequiredForOperation_WithNull_ThrowsException()
@@ -89,6 +102,13 @@ namespace BagOUtils.Guards.Unit.Tests
 
             Assert.AreEqual(param, returned);
         }
+
+
+        //-------------------------------------------------------------------------
+        //
+        // GuardIsNotDefault Tests
+        //
+        //-------------------------------------------------------------------------
 
         [Test]
         public void GuardIsNotDefault_WithNullObject_ThrowsException()
