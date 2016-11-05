@@ -11,18 +11,11 @@ namespace BagOUtils.Guards.Unit.Tests
     [TestFixture]
     public class StringGuardTests
     {
-        [Test]
-        public void GuardIsNotNull_WithString_ReturnsString()
-        {
-            // Arrange
-            var originalString = "A valid, non-null, non-empty, not whitespace only string.";
-
-            // Act
-            var returnedString = originalString.GuardIsSet("any");
-
-            // Assert
-            Assert.AreEqual(expected: originalString, actual: returnedString);
-        }
+        //-------------------------------------------------------------------------
+        //
+        // GuardIsSet Tests
+        //
+        //-------------------------------------------------------------------------
 
         [TestCase(null)]
         [TestCase("")]
@@ -30,7 +23,11 @@ namespace BagOUtils.Guards.Unit.Tests
         public void GuardIsSet_WithNotSetItem_ThrowsException(string param)
         {
             var paramName = "param";
-            var expectedMessage = "Must be set to a non-null, non-empty, non-whitespace only string.";
+            var expectedMessage = ItemTemplate
+                .IsSet
+                .UsingItem(paramName)
+                .Prepare();
+
 
             var ex = Assert.Throws<ArgumentException>(() => param.GuardIsSet(paramName));
 
@@ -47,6 +44,13 @@ namespace BagOUtils.Guards.Unit.Tests
 
             Assert.AreSame(param, returned);
         }
+
+
+        //-------------------------------------------------------------------------
+        //
+        // GuardRequiredLength Tests
+        //
+        //-------------------------------------------------------------------------
 
         [TestCase("a")]
         [TestCase("aaa")]
@@ -93,16 +97,28 @@ namespace BagOUtils.Guards.Unit.Tests
             StringAssert.Contains(expectedMessage, ex.Message);
         }
 
+
+        //-------------------------------------------------------------------------
+        //
+        // GuardSize Tests
+        //
+        //-------------------------------------------------------------------------
+
         [TestCase(null)]
         [TestCase("")]
-        [TestCase("   ")]
-        public void GuardSize_WithNotSetItem_ThrowsException(string param)
+        [TestCase("      ")]
+        public void GuardSize_WithNotSetItemOfWrongSize_ThrowsException(string param)
         {
             var paramName = "param";
             int min = 2;
             int max = 3;
-            var expectedMessage = "Must be set to a non-null, non-empty, non-whitespace only string.";
-            //var expectedMessage = string.Format( "The text must be between {0} and {1} characters long.", min, max );
+            var expectedMessage = CustomTemplate
+                .TextSizeOutOfRange
+                .UsingItem(paramName)
+                .UsingValue(param)
+                .WithMinimum(min)
+                .WithMaximum(max)
+                .Prepare();
 
             var ex = Assert.Throws<ArgumentException>(() => param.GuardSize(paramName, min, max));
 
@@ -116,9 +132,13 @@ namespace BagOUtils.Guards.Unit.Tests
             var paramName = "param";
             int min = 2;
             int max = 3;
-            var expectedMessage = string.Format("The text must be between {0} and {1} characters long.", min, max);
+            var expectedMessage = CustomTemplate
+                .TextSizeOutOfRange
+                .UsingItem(paramName)
+                .UsingValue(param)
+                .Prepare();
 
-            var ex = Assert.Throws<ArgumentOutOfRangeException>(() => param.GuardSize(paramName, min, max));
+            var ex = Assert.Throws<ArgumentException>(() => param.GuardSize(paramName, min, max));
 
             StringAssert.Contains(expectedMessage, ex.Message);
         }

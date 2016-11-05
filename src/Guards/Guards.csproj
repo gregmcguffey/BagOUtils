@@ -48,6 +48,7 @@
     <Compile Include="Messages\ItemTemplate.cs" />
     <Compile Include="Messages\ItemValueTemplate.cs" />
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="Messages\StringLengthRangeTemplate.cs" />
     <Compile Include="Messages\RangeTemplate.cs" />
     <Compile Include="Messages\SingleValueComparisonTemplate.cs" />
     <Compile Include="Messages\StringSizeTemplate.cs" />

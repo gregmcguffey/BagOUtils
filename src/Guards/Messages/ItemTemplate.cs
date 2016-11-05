@@ -32,6 +32,9 @@ namespace BagOUtils.Guards.Messages
         public static ItemTemplate IsNull
             = new ItemTemplate("The value of '{item}' is required but it is null.");
 
+        public static ItemTemplate IsSet
+            = new ItemTemplate("The value of '{item}' must be set to a non-null, non-empty, non-whitespace only string.");
+
         //-------------------------------------------------------------------------
         //
         // Instance 
