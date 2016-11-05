@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using BagOUtils.Guards;
+using BagOUtils.Guards.Messages;
 
 namespace BagOUtils.Guards.Unit.Tests
 {
@@ -23,7 +23,10 @@ namespace BagOUtils.Guards.Unit.Tests
             //-- any reference type will work.
             string param = null;
             var paramName = "param";
-            var exceptionMessage = "The value of 'param' is required but it is null.";
+            var exceptionMessage = ItemTemplate
+                .IsNull
+                .UsingItem(paramName)
+                .Prepare();
 
             var ex = Assert.Throws<ArgumentNullException>(() => param.GuardIsNotNull(paramName));
 
@@ -35,7 +38,6 @@ namespace BagOUtils.Guards.Unit.Tests
         {
             var param = "hello World";
             var paramName = "param";
-            var exceptionMessage = "You must provide a parameter.";
 
             var returned = param.GuardIsNotNull(paramName);
 
@@ -68,7 +70,11 @@ namespace BagOUtils.Guards.Unit.Tests
             string param = null;
             var paramName = "param";
             var operation = "operation";
-            var exceptionMessage = "The operation, 'operation', requires a value for 'param' which is null.";
+            var exceptionMessage = ItemValueTemplate
+                .MissingForOperation
+                .UsingItem(paramName)
+                .UsingValue(operation)
+                .Prepare();
 
             var ex = Assert.Throws<InvalidOperationException>(() =>
             {
@@ -81,11 +87,11 @@ namespace BagOUtils.Guards.Unit.Tests
         [Test]
         public void GuardIsRequiredForOperation_WithItem_ReturnsItem()
         {
-            var param = "hello World";
+            string param = "hello world";
+            var paramName = "param";
             var operation = "operation";
-            var exceptionMessage = "The operation, 'hello World', requires a value for 'operation' which is null.";
 
-            var returned = param.GuardIsRequiredForOperation(param, operation);
+            var returned = param.GuardIsRequiredForOperation(paramName, operation);
 
             Assert.AreSame(param, returned);
         }
